@@ -3,13 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
-	<artifactId>service</artifactId>
+	<groupId>com.senhome.service</groupId>
+	<artifactId>senhome-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>service</name>
-	<description>Demo project for Spring Boot</description>
+	<name>${project.artifactId}-${project.version}</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -25,6 +24,13 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.senhome.common</groupId>
+			<artifactId>senhome-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -53,6 +59,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.senhome.api</groupId>
+			<artifactId>senhome-api</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

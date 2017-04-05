@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.product.dal.mapper.ProductMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.product.dal.dataobject.Product" >
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="description" property="description"/>
+        <result column="cms_id" property="cmsId"/>
+        <result column="image1" property="image1"/>
+        <result column="image2" property="image2"/>
+        <result column="image3" property="image3"/>
+        <result column="image4" property="image4"/>
+        <result column="image5" property="image5"/>
+        <result column="image6" property="image6"/>
+        <result column="image7" property="image7"/>
+        <result column="image8" property="image8"/>
+        <result column="image9" property="image9"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, `name`, code, description, is_available, cms_id, image1, image2, image3,
+        image4, image5, image6, image7, image8, image9, create_time, update_time
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from product
+        where
+        is_available = 1 and id = #{id}
+    </select>
+
+    <select id="findProductByIds" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from product
+        where is_available = 1
+        and id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

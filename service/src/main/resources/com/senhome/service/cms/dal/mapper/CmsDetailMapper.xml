@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.cms.dal.mapper.CmsDetailMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.cms.dal.dataobject.CmsDetail" >
+        <id column="id" property="id"/>
+        <result column="cms_id" property="cmsId"/>
+        <result column="remark" property="remark"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="sequence" property="sequence"/>
+        <result column="type" property="type"/>
+        <result column="navigation_name" property="navigationName"/>
+        <result column="in_navigation" property="inNavigation"/>
+        <result column="one_image" property="oneImage"/>
+        <result column="two_image" property="twoImage"/>
+        <result column="one_image_height" property="oneImageHeight"/>
+        <result column="two_image_height" property="twoImageHeight"/>
+        <result column="one_color" property="oneColor"/>
+        <result column="two_color" property="twoColor"/>
+        <result column="three_color" property="threeColor"/>
+        <result column="content" property="content"/>
+        <result column="one_alpha" property="oneAlpha"/>
+        <result column="one_type" property="oneType"/>
+        <result column="one_display_id" property="oneDisplayId"/>
+        <result column="two_type" property="twoType"/>
+        <result column="two_display_id" property="twoDisplayId"/>
+        <result column="relation_id" property="relationId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, cms_id, remark, is_available, sequence, `type`, navigation_name, in_navigation, one_image,
+        two_image, one_image_height, two_image_height, one_color, two_color, three_color,
+        content, one_alpha, one_type, one_display_id, two_type, two_display_id, relation_id,
+        create_time, update_time
+    </sql>
+
+    <select id="findByCmsId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from cms_detail
+        where is_available = 1 and cms_id = #{cmsId}
+        order by sequence asc
+    </select>
+
+</mapper>
