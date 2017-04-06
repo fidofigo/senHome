@@ -51,6 +51,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.senhome.api</groupId>
 			<artifactId>senhome-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>

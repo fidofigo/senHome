@@ -88,8 +88,4 @@
         <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"></property>
-        <property name="basePackage" value="com.ygg.groupPurchase.dao" />
-    </bean>
 </beans>
