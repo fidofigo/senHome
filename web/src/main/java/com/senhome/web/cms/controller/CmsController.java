@@ -26,8 +26,8 @@ public class CmsController {
     @Resource
     private CmsDetailServiceApi cmsDetailServiceApi;
 
-    @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public Object detail(@RequestBody CmsParam cmsParam){
+    @RequestMapping(value = "/detail")
+    public Object detail(CmsParam cmsParam){
         ViewResult result = cmsDetailServiceApi.getCmsDetail(cmsParam.getCmsId());
         if (!result.isSuccess()) {
             String msg = "Invoke cmsDetailServiceApi.getCmsDetail " + result.getMessage();
