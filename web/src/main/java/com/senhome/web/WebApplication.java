@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@ComponentScan(basePackages = "com.senhomelife")
+@ComponentScan(basePackages = "com.senhome")
 public class WebApplication extends SpringBootServletInitializer{
 
 	@Override
