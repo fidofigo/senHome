@@ -1,6 +1,7 @@
 package com.senhome.service.group.dal.mapper;
 
 import com.senhome.service.group.dal.dataobject.Group;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 /**
  * Created by fidofigo on 17/4/4.
  */
+@Component
 public interface GroupMapper {
     /**
      * 通过id获取组合信息

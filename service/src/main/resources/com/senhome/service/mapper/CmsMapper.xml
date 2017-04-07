@@ -12,7 +12,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, `name`, remark, is_available, type, create_time, update_time
+        id, `name`, remark, is_available, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap" >

@@ -281,7 +281,7 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
             detailDTO.setSequence(detail.getSequence());
             detailDTO.setType(detail.getType());
 
-            List<CmsGroupDetail> groupDetails = groupDetailList.stream().filter(e -> e.getCmsId().equals(detail.getId())).collect(Collectors.toList());
+            List<CmsGroupDetail> groupDetails = groupDetailList.stream().filter(e -> e.getCmsDetailId().equals(detail.getId())).collect(Collectors.toList());
 
             groupDetails.sort((p1, p2) -> p1.getSequence().compareTo(p2.getSequence()));
 

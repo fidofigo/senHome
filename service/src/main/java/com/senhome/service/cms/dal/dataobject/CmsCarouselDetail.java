@@ -15,9 +15,9 @@ import java.util.Date;
 public class CmsCarouselDetail extends BaseDO{
 
     /**
-     * cmsId
+     * cmsDetailId
      */
-    private Integer cmsId;
+    private Integer cmsDetailId;
 
     /**
      * 排序值

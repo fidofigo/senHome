@@ -18,8 +18,6 @@
         <result column="one_color" property="oneColor"/>
         <result column="two_color" property="twoColor"/>
         <result column="three_color" property="threeColor"/>
-        <result column="content" property="content"/>
-        <result column="one_alpha" property="oneAlpha"/>
         <result column="one_type" property="oneType"/>
         <result column="one_display_id" property="oneDisplayId"/>
         <result column="two_type" property="twoType"/>
@@ -32,8 +30,7 @@
     <sql id="Base_Column_List" >
         id, cms_id, remark, is_available, sequence, `type`, navigation_name, in_navigation, one_image,
         two_image, one_image_height, two_image_height, one_color, two_color, three_color,
-        content, one_alpha, one_type, one_display_id, two_type, two_display_id, relation_id,
-        create_time, update_time
+        one_type, one_display_id, two_type, two_display_id, relation_id, create_time, update_time
     </sql>
 
     <select id="findByCmsId" resultMap="BaseResultMap" >

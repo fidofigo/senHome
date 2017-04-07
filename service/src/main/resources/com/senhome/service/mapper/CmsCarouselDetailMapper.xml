@@ -4,7 +4,7 @@
 
     <resultMap id="BaseResultMap" type="com.senhome.service.cms.dal.dataobject.CmsCarouselDetail" >
         <id column="id" property="id"/>
-        <result column="cms_id" property="cmsId"/>
+        <result column="cms_detail_id" property="cmsDetailId"/>
         <result column="sequence" property="sequence"/>
         <result column="type" property="type"/>
         <result column="remark" property="remark"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, cms_id, sequence, `type`, remark, image, image_width, image_height, display_id, is_available,
+        id, cms_detail_id, sequence, `type`, remark, image, image_width, image_height, display_id, is_available,
         create_time, update_time
     </sql>
 

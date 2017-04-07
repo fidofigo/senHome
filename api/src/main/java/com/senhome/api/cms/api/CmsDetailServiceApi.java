@@ -3,10 +3,12 @@ package com.senhome.api.cms.api;
 import com.senhome.api.cms.model.CmsDTO;
 import com.senhome.shell.common.result.Result;
 import com.senhome.shell.common.result.ViewResult;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by fidofigo on 17/2/24.
  */
+@Component("cmsDetailServiceApi")
 public interface CmsDetailServiceApi {
     /**
      * 获取促销模版详情

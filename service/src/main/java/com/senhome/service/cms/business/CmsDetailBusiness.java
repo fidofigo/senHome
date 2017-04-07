@@ -9,7 +9,9 @@ import com.senhome.service.cms.dal.mapper.CmsDetailMapper;
 import com.senhome.service.cms.dal.mapper.CmsGroupDetailMapper;
 import com.senhome.service.cms.dal.mapper.CmsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -18,6 +20,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@Component
+@Transactional
 public class CmsDetailBusiness {
 
     @Autowired
