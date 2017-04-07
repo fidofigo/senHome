@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @Service("cmsDetailServiceApi")
 public class CmsDetailServiceImpl implements CmsDetailServiceApi {
 
-    @Resource
+    @Autowired
     private CmsDetailBusiness cmsDetailBusiness;
 
     @Autowired
