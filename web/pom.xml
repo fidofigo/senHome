@@ -6,8 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>web</name>
-	<description>Demo project for Spring Boot</description>
+    <name>${project.artifactId}-${project.version}</name>
 
 	<parent>
         <groupId>com.senhome</groupId>
@@ -52,18 +51,6 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.2.0</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.senhome.api</groupId>
-			<artifactId>senhome-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.senhome.service</groupId>
-			<artifactId>senhome-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
