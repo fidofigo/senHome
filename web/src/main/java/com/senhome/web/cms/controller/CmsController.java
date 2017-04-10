@@ -34,7 +34,7 @@ public class CmsController {
             throw new RuntimeException(msg);
         }
 
-        return result.getModel();
+        return result.toJson();
     }
 
 }
