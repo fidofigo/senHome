@@ -9,8 +9,8 @@ import java.util.List;
 public interface CmsCarouselDetailMapper {
     /**
      * 通过cmsId获取cms轮播列表
-     * @param cmsId
+     * @param cmsDetailId
      * @return
      */
-    List<CmsCarouselDetail> findByCmsId(Integer cmsId);
+    List<CmsCarouselDetail> findByCmsDetailId(Integer cmsDetailId);
 }

@@ -46,21 +46,21 @@ public class CmsDetailBusiness {
     }
 
     @Transactional(readOnly = true)
-    public List<CmsCarouselDetail> getCmsCarouselDetailList(Integer cmsId)
+    public List<CmsCarouselDetail> getCmsCarouselDetailList(Integer cmsDetailId)
     {
-        if(cmsId == null)
+        if(cmsDetailId == null)
             return null;
 
-        return cmsCarouselDetailMapper.findByCmsId(cmsId);
+        return cmsCarouselDetailMapper.findByCmsDetailId(cmsDetailId);
     }
 
     @Transactional(readOnly = true)
-    public List<CmsGroupDetail> getCmsGroupDetailList(Integer cmsId)
+    public List<CmsGroupDetail> getCmsGroupDetailList(Integer cmsDetailId)
     {
-        if(cmsId == null)
+        if(cmsDetailId == null)
             return null;
 
-        return cmsGroupDetailMapper.findByCmsId(cmsId);
+        return cmsGroupDetailMapper.findByCmsDetailId(cmsDetailId);
     }
 
     @Transactional(readOnly = true)

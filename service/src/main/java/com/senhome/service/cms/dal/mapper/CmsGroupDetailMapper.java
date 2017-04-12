@@ -12,7 +12,7 @@ public interface CmsGroupDetailMapper {
      * @param cmsId
      * @return
      */
-    List<CmsGroupDetail> findByCmsId(Integer cmsId);
+    List<CmsGroupDetail> findByCmsDetailId(Integer cmsDetailId);
 
     /**
      * 批量获取cms组合搭配详情列表

@@ -11,8 +11,8 @@ public enum CmsDetailType implements BaseEnum {
     GROUP(1, "组合搭配模块"),
     PRODUCT_THREE(2, "商品展示区域(1行3张)"),
     NAVIGATION(3, "导航"),
-    SCROLL(4, "滑动banner"),
-    CAROUSEL(5, "轮播图模块"),
+    CAROUSEL(4, "轮播图模块"),
+    SCROLL(5, "商品滑动模块"),
     PRODUCT_TWO(6, "商品展示区域(1行2张)");
 
     private int code;
