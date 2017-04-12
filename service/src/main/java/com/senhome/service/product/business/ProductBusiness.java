@@ -20,7 +20,7 @@ public class ProductBusiness {
     private ProductMapper productMapper;
 
     @Transactional(readOnly = true)
-    public Product getGroup(Integer id)
+    public Product getProduct(Integer id)
     {
         if (id == null)
             return null;
@@ -29,7 +29,7 @@ public class ProductBusiness {
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getGroupListByIds(List<Integer> ids)
+    public List<Product> getProductListByIds(List<Integer> ids)
     {
         if(CollectionUtils.isEmpty(ids))
             return Collections.emptyList();

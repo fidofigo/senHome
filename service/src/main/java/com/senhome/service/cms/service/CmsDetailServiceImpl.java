@@ -118,7 +118,7 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
 
         //获取所有组合商品
         List<Integer> productIds = groupBusiness.getProductIdsByGroupId(groupIds);
-        List<Product> productList = productBusiness.getGroupListByIds(productIds);
+        List<Product> productList = productBusiness.getProductListByIds(productIds);
         Map<Integer, Product> productMap = productList.parallelStream().collect(Collectors.toMap(Product::getId, e -> e));
 
         for(CmsDetail detail : detailList) {
@@ -181,7 +181,7 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
 
         //获取所有组合商品
         List<Integer> productIds = groupBusiness.getProductIdsByGroupId(groupIds);
-        List<Product> productList = productBusiness.getGroupListByIds(productIds);
+        List<Product> productList = productBusiness.getProductListByIds(productIds);
         Map<Integer, Product> productMap = productList.parallelStream().collect(Collectors.toMap(Product::getId, e -> e));
 
         for(CmsDetail detail : detailList) {

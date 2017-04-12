@@ -76,4 +76,34 @@ public class Product extends BaseDO{
      */
     private String image9;
 
+    /**
+     * 商品图10
+     */
+    private String image10;
+
+    /**
+     * 商品图11
+     */
+    private String image11;
+
+    /**
+     * 商品图12
+     */
+    private String image12;
+
+    /**
+     * 商品图13
+     */
+    private String image13;
+
+    /**
+     * 商品图14
+     */
+    private String image14;
+
+    /**
+     * 商品图15
+     */
+    private String image15;
+
 }
