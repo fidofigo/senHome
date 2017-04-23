@@ -75,31 +75,31 @@ public class ProductServiceImpl implements ProductServiceApi{
         }
 
         if(product.getImage9() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage9());
         }
 
         if(product.getImage10() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage10());
         }
 
         if(product.getImage11() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage11());
         }
 
         if(product.getImage12() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage12());
         }
 
         if(product.getImage13() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage13());
         }
 
         if(product.getImage14() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage14());
         }
 
         if(product.getImage15() != null) {
-            productImageList.add(product.getImage8());
+            productImageList.add(product.getImage15());
         }
 
         ProductDTO productDTO = new ProductDTO();
