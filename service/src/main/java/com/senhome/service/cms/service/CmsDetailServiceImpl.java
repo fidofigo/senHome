@@ -384,11 +384,11 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
      */
     private String getJumpLinkUrl(int type, Integer displayId){
         if(type == CmsGroupType.PRODUCT.getCode()) {
-            return "https://www.senhomelife.com/webNative/product/detail/" + displayId;
+            return "http://m.senhomelife.com/html/product.html?id=" + displayId;
         } else if(type == CmsGroupType.GROUP.getCode()) {
-            return "https://www.senhomelife.com/webNative/group/detail/" + displayId;
+            return "http://m.senhomelife.com/html/product.html?id=" + displayId;
         } else if(type == CmsGroupType.CMS.getCode()) {
-            return "https://www.senhomelife.com/webNative/cms/detail/" + displayId;
+            return "http://m.senhomelife.com/html/index.html?cmsId=" + displayId;
         }
 
         return "";
