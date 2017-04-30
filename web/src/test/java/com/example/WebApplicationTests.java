@@ -19,7 +19,7 @@ public class WebApplicationTests {
 
 	@Test
 	public void contextLoads() {
-        System.out.println("@@@@@@@@@@@@@@@" + cmsDetailServiceApi.getCmsDetail(1));
+        System.out.println("@@@@@@@@@@@@@@@" + cmsDetailServiceApi.getCmsDetail(2));
 	}
 
 }
