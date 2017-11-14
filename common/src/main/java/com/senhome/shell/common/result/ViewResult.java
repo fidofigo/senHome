@@ -1,6 +1,5 @@
 package com.senhome.shell.common.result;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 import com.senhome.shell.common.json.JsonUtil;
 import lombok.*;

@@ -23,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -93,7 +94,7 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
         if(detailDTONavigation != null)
             cmsDetailDTOs.add(detailDTONavigation);
 
-        cmsDetailDTOs.sort((p1, p2) -> p1.getSequence().compareTo(p2.getSequence()));
+        cmsDetailDTOs.sort(Comparator.comparing(CmsDetailDTO::getSequence));
 
         cmsDTO.setCmsDetailList(cmsDetailDTOs);
 
