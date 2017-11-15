@@ -7,10 +7,7 @@ import com.senhome.shell.common.result.ViewResult;
 import com.senhome.web.cms.param.CmsParam;
 import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -27,6 +24,7 @@ public class CmsController {
     private CmsDetailServiceApi cmsDetailServiceApi;
 
     @RequestMapping(value = "/detail")
+    @ResponseBody
     public Object detail(CmsParam cmsParam){
         ViewResult result = cmsDetailServiceApi.getCmsDetail(cmsParam.getCmsId());
         if (!result.isSuccess()) {
@@ -34,7 +32,7 @@ public class CmsController {
             throw new RuntimeException(msg);
         }
 
-        return result.toJson();
+        return result;
     }
 
 }
