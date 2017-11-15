@@ -148,7 +148,7 @@ CREATE TABLE `cms_group_detail` (
   `is_available`       TINYINT(3) UNSIGNED  NOT NULL DEFAULT '1'
   COMMENT '是否可用；0：否，1：是',
   `layout_type`        TINYINT(3) UNSIGNED  NOT NULL DEFAULT '1'
-  COMMENT '布局方式，1：一行1张，2：一行2张，3：一行3张，4：一行4张，5：一行5张，6：一行6张',
+  COMMENT '布局方式，1：一行1张，2：一行2张，3：一行3张，4：一行4张',
   `one_remark`         VARCHAR(100)         NOT NULL DEFAULT ''
   COMMENT '第一张备注',
   `one_image_url`      VARCHAR(100)         NOT NULL DEFAULT ''
