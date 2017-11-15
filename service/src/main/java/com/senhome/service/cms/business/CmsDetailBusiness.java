@@ -9,19 +9,13 @@ import com.senhome.service.cms.dal.mapper.CmsDetailMapper;
 import com.senhome.service.cms.dal.mapper.CmsGroupDetailMapper;
 import com.senhome.service.cms.dal.mapper.CmsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
 
 @Service
-@Component
-@Transactional
 public class CmsDetailBusiness {
 
     @Autowired
@@ -36,7 +30,6 @@ public class CmsDetailBusiness {
     @Autowired
     private CmsCarouselDetailMapper cmsCarouselDetailMapper;
 
-    @Transactional(readOnly = true)
     public List<CmsDetail> getCmsDetailList(Integer cmsId)
     {
         if (cmsId == null)
@@ -47,7 +40,6 @@ public class CmsDetailBusiness {
         return cmsDetailMapper.findByCmsId(cmsId);
     }
 
-    @Transactional(readOnly = true)
     public List<CmsCarouselDetail> getCmsCarouselDetailList(Integer cmsDetailId)
     {
         if(cmsDetailId == null)
@@ -58,7 +50,6 @@ public class CmsDetailBusiness {
         return cmsCarouselDetailMapper.findByCmsDetailId(cmsDetailId);
     }
 
-    @Transactional(readOnly = true)
     public List<CmsGroupDetail> getCmsGroupDetailList(Integer cmsDetailId)
     {
         if(cmsDetailId == null)
@@ -69,7 +60,6 @@ public class CmsDetailBusiness {
         return cmsGroupDetailMapper.findByCmsDetailId(cmsDetailId);
     }
 
-    @Transactional(readOnly = true)
     public List<CmsGroupDetail> getCmsGroupDetailListByIds(List<Integer> cmsIds)
     {
         if(CollectionUtils.isEmpty(cmsIds))
@@ -80,7 +70,6 @@ public class CmsDetailBusiness {
         return cmsGroupDetailMapper.findByCmsDetailByIds(cmsIds);
     }
 
-    @Transactional(readOnly = true)
     public Cms getCmsById(Integer id)
     {
         if(id == null)
@@ -91,7 +80,6 @@ public class CmsDetailBusiness {
         return cmsMapper.findById(id);
     }
 
-    @Transactional(readOnly = true)
     public List<Cms> getCmsListByIds(List<Integer> cmsIds)
     {
         if(CollectionUtils.isEmpty(cmsIds))

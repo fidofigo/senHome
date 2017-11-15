@@ -4,7 +4,6 @@ import com.senhome.service.product.dal.dataobject.Product;
 import com.senhome.service.product.dal.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
@@ -19,7 +18,6 @@ public class ProductBusiness {
     @Autowired
     private ProductMapper productMapper;
 
-    @Transactional(readOnly = true)
     public Product getProduct(Integer id)
     {
         if (id == null)
@@ -30,7 +28,6 @@ public class ProductBusiness {
         return productMapper.findById(id);
     }
 
-    @Transactional(readOnly = true)
     public List<Product> getProductListByIds(List<Integer> ids)
     {
         if(CollectionUtils.isEmpty(ids))
