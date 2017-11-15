@@ -23,7 +23,9 @@ public class ProductBusiness {
     public Product getProduct(Integer id)
     {
         if (id == null)
+        {
             return null;
+        }
 
         return productMapper.findById(id);
     }
@@ -32,7 +34,9 @@ public class ProductBusiness {
     public List<Product> getProductListByIds(List<Integer> ids)
     {
         if(CollectionUtils.isEmpty(ids))
+        {
             return Collections.emptyList();
+        }
 
         return productMapper.findProductByIds(ids);
     }

@@ -20,7 +20,9 @@ public class GroupBusiness {
     public Group getGroup(Integer id)
     {
         if (id == null)
+        {
             return null;
+        }
 
         return groupMapper.findById(id);
     }
@@ -29,7 +31,9 @@ public class GroupBusiness {
     public List<Group> getGroupListByIds(List<Integer> ids)
     {
         if(CollectionUtils.isEmpty(ids))
+        {
             return Collections.emptyList();
+        }
 
         return groupMapper.findGroupByIds(ids);
     }
@@ -38,7 +42,9 @@ public class GroupBusiness {
     public List<Integer> getProductIdsByGroupId(List<Integer> groupIds)
     {
         if(CollectionUtils.isEmpty(groupIds))
+        {
             return Collections.emptyList();
+        }
 
         return groupMapper.findProductIdsByGroupIds(groupIds);
     }
@@ -46,7 +52,9 @@ public class GroupBusiness {
     @Transactional(readOnly = true)
     public Map<Integer, List<Integer>> findProductIdsGroupIdsByGroupIds(List<Integer> ids) {
         if(CollectionUtils.isEmpty(ids))
+        {
             return new HashMap<>();
+        }
 
         List<Map<String, Object>> lines = groupMapper.findProductIdsGroupIdsByGroupIds(ids);
         Map<Integer, List<Integer>> retMap = new HashMap<>();

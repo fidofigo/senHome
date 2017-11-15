@@ -72,27 +72,37 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
         //获取所有组合搭配模版
         List<CmsDetailDTO> detailDTOGroupList = getCmsGroups(cmsDetails.stream().filter(e -> (e.getType() == CmsDetailType.GROUP.getCode())).collect(Collectors.toList()));
         if(detailDTOGroupList != null)
+        {
             cmsDetailDTOs.addAll(detailDTOGroupList);
+        }
 
         //获取商品展示区域
         List<CmsDetailDTO> detailDTOProductList = getCmsProducts(cmsDetails.stream().filter(e -> (e.getType() == CmsDetailType.PRODUCT_THREE.getCode() || e.getType() == CmsDetailType.PRODUCT_TWO.getCode())).collect(Collectors.toList()));
         if(detailDTOProductList != null)
+        {
             cmsDetailDTOs.addAll(detailDTOProductList);
+        }
 
         //轮播区域
         CmsDetailDTO detailDTOCarousel = getCmsCarousel(cmsDetails.stream().filter(e -> e.getType() == CmsDetailType.CAROUSEL.getCode()).findFirst().orElse(null));
         if(detailDTOCarousel != null)
+        {
             cmsDetailDTOs.add(detailDTOCarousel);
+        }
 
         //商品滑动区域
         List<CmsDetailDTO> detailDTOScrollList = getCmsScroll(cmsDetails.stream().filter(e -> e.getType() == CmsDetailType.SCROLL.getCode()).collect(Collectors.toList()));
         if(detailDTOScrollList != null)
+        {
             cmsDetailDTOs.addAll(detailDTOScrollList);
+        }
 
         //导航区域
         CmsDetailDTO detailDTONavigation = getCmsNavigation(cmsDetails);
         if(detailDTONavigation != null)
+        {
             cmsDetailDTOs.add(detailDTONavigation);
+        }
 
         cmsDetailDTOs.sort(Comparator.comparing(CmsDetailDTO::getSequence));
 
@@ -109,7 +119,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
     private List<CmsDetailDTO> getCmsProducts(List<CmsDetail> detailList)
     {
         if(detailList.size() == 0)
+        {
             return null;
+        }
 
         List<CmsDetailDTO> detailDTOs = new ArrayList<>();
 
@@ -138,7 +150,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
             List<Integer> ids = activityProductIdsMap.get(detail.getRelationId());
 
             if(ids == null)
+            {
                 continue;
+            }
 
             List<CmsProductDTO> dtoList = new ArrayList<>();
 
@@ -146,7 +160,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
                 Product product = productMap.get(id);
 
                 if(product == null)
+                {
                     continue;
+                }
 
                 CmsProductDTO cmsProductDTO = new CmsProductDTO();
                 cmsProductDTO.setName(product.getName());
@@ -172,7 +188,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
     private List<CmsDetailDTO> getCmsScroll(List<CmsDetail> detailList)
     {
         if(detailList.size() == 0)
+        {
             return null;
+        }
 
         List<CmsDetailDTO> detailDTOs = new ArrayList<>();
 
@@ -197,7 +215,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
             List<Integer> ids = activityProductIdsMap.get(detail.getRelationId());
 
             if(ids == null)
+            {
                 continue;
+            }
 
             if(ids.size() > 6) {
                 ids = ids.subList(0, 6);
@@ -209,7 +229,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
                 Product product = productMap.get(id);
 
                 if(product == null)
+                {
                     continue;
+                }
 
                 CmsProductDTO cmsProductDTO = new CmsProductDTO();
                 cmsProductDTO.setName(product.getName());
@@ -235,7 +257,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
     private CmsDetailDTO getCmsCarousel(CmsDetail detail)
     {
         if(detail == null)
+        {
             return null;
+        }
 
         CmsDetailDTO detailDTO = new CmsDetailDTO();
         detailDTO.setCmsId(detail.getId());
@@ -268,7 +292,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
     private List<CmsDetailDTO> getCmsGroups(List<CmsDetail> detailList)
     {
         if(detailList.size() == 0)
+        {
             return null;
+        }
 
         List<CmsDetailDTO> detailDTOs = new ArrayList<>();
 
@@ -287,7 +313,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
             groupDetails.sort((p1, p2) -> p1.getSequence().compareTo(p2.getSequence()));
 
             if(CollectionUtils.isEmpty(groupDetails))
+            {
                 continue;
+            }
 
             List<CmsGroupDetailDTO> groupDetailDTOs = new ArrayList<>();
 
@@ -333,7 +361,9 @@ public class CmsDetailServiceImpl implements CmsDetailServiceApi {
         CmsDetail detail = cmsDetails.stream().filter(e -> e.getType() == CmsDetailType.NAVIGATION.getCode()).findFirst().orElse(null);
 
         if(detail == null)
+        {
             return null;
+        }
 
         detailDTO.setCmsId(detail.getId());
         detailDTO.setType(detail.getType());

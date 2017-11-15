@@ -524,7 +524,10 @@ public class DateUtil {
      * @return
      */
     public static boolean isBetweenTime(Date time, Date startTime, Date endTime) {
-        if (null == startTime || null == endTime) return false;
+        if (null == startTime || null == endTime)
+        {
+            return false;
+        }
         if (time.before(startTime) || time.after(endTime)) {
             return false;
         }
@@ -538,8 +541,14 @@ public class DateUtil {
      * @return
      */
     public static Date parseDate(String dateStr, String pattern) {
-        if (StringUtils.isEmpty(dateStr)) return null;
-        if (StringUtils.isEmpty(pattern)) pattern = "yyyy-MM-dd";
+        if (StringUtils.isEmpty(dateStr))
+        {
+            return null;
+        }
+        if (StringUtils.isEmpty(pattern))
+        {
+            pattern = "yyyy-MM-dd";
+        }
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(pattern);
             return sdf.parse(dateStr);

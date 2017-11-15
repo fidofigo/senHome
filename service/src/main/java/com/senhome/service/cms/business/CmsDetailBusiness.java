@@ -40,7 +40,9 @@ public class CmsDetailBusiness {
     public List<CmsDetail> getCmsDetailList(Integer cmsId)
     {
         if (cmsId == null)
+        {
             return null;
+        }
 
         return cmsDetailMapper.findByCmsId(cmsId);
     }
@@ -49,7 +51,9 @@ public class CmsDetailBusiness {
     public List<CmsCarouselDetail> getCmsCarouselDetailList(Integer cmsDetailId)
     {
         if(cmsDetailId == null)
+        {
             return null;
+        }
 
         return cmsCarouselDetailMapper.findByCmsDetailId(cmsDetailId);
     }
@@ -58,7 +62,9 @@ public class CmsDetailBusiness {
     public List<CmsGroupDetail> getCmsGroupDetailList(Integer cmsDetailId)
     {
         if(cmsDetailId == null)
+        {
             return null;
+        }
 
         return cmsGroupDetailMapper.findByCmsDetailId(cmsDetailId);
     }
@@ -67,7 +73,9 @@ public class CmsDetailBusiness {
     public List<CmsGroupDetail> getCmsGroupDetailListByIds(List<Integer> cmsIds)
     {
         if(CollectionUtils.isEmpty(cmsIds))
+        {
             return Collections.emptyList();
+        }
 
         return cmsGroupDetailMapper.findByCmsDetailByIds(cmsIds);
     }
@@ -76,7 +84,9 @@ public class CmsDetailBusiness {
     public Cms getCmsById(Integer id)
     {
         if(id == null)
+        {
             return null;
+        }
 
         return cmsMapper.findById(id);
     }
@@ -85,7 +95,9 @@ public class CmsDetailBusiness {
     public List<Cms> getCmsListByIds(List<Integer> cmsIds)
     {
         if(CollectionUtils.isEmpty(cmsIds))
+        {
             return Collections.emptyList();
+        }
 
         return cmsMapper.findByCmsByIds(cmsIds);
     }
