@@ -1,7 +1,7 @@
 package com.senhome.service.product.service;
 
-import com.senhome.product.api.ProductServiceApi;
-import com.senhome.product.model.ProductDTO;
+import com.senhome.api.product.api.ProductServiceApi;
+import com.senhome.api.product.model.ProductDTO;
 import com.senhome.service.product.business.ProductBusiness;
 import com.senhome.service.product.dal.dataobject.Product;
 import com.senhome.shell.common.result.ViewResult;

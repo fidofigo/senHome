@@ -1,14 +1,14 @@
 package com.senhome.service.product.dal.mapper;
 
 import com.senhome.service.product.dal.dataobject.Product;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by fidofigo on 17/4/4.
  */
-@Component
+@Repository
 public interface ProductMapper {
     /**
      * 通过id获取商品信息

@@ -1,15 +1,9 @@
 package com.senhome.service.product.dal.dataobject;
 
 import com.senhome.shell.common.dal.domain.BaseDO;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Data
 public class Product extends BaseDO{
     /**
      * 商品名称

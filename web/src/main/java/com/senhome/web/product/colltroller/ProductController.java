@@ -1,7 +1,6 @@
 package com.senhome.web.product.colltroller;
 
-import com.senhome.api.cms.api.CmsDetailServiceApi;
-import com.senhome.product.api.ProductServiceApi;
+import com.senhome.api.product.api.ProductServiceApi;
 import com.senhome.shell.common.result.ViewResult;
 import com.senhome.web.product.param.ProductParam;
 import org.springframework.web.bind.annotation.RequestMapping;

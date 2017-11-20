@@ -1,17 +1,9 @@
 package com.senhome.service.cms.dal.dataobject;
 
 import com.senhome.shell.common.dal.domain.BaseDO;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-import java.util.Date;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Data
 public class CmsCarouselDetail extends BaseDO{
 
     /**

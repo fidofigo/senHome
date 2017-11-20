@@ -1,12 +1,11 @@
 package com.senhome.service.cms.dal.mapper;
 
 import com.senhome.service.cms.dal.dataobject.Cms;
-import com.senhome.service.cms.dal.dataobject.CmsGroupDetail;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component("cmsMapper")
+@Repository
 public interface CmsMapper {
     /**
      * 获取所有cms列表

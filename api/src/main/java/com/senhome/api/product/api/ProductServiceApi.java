@@ -1,4 +1,4 @@
-package com.senhome.product.api;
+package com.senhome.api.product.api;
 
 import com.senhome.shell.common.result.ViewResult;
 import org.springframework.stereotype.Component;

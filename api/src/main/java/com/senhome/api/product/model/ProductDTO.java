@@ -1,4 +1,4 @@
-package com.senhome.product.model;
+package com.senhome.api.product.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

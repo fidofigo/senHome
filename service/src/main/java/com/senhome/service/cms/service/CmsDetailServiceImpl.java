@@ -28,11 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 /**
  * Created by fidofigo on 17/2/24.
  */
-@Component
 @Service("cmsDetailServiceApi")
 public class CmsDetailServiceImpl implements CmsDetailServiceApi {
 

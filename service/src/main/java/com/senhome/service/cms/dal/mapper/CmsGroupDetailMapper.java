@@ -1,15 +1,15 @@
 package com.senhome.service.cms.dal.mapper;
 
 import com.senhome.service.cms.dal.dataobject.CmsGroupDetail;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component("cmsGroupDetailMapper")
+@Repository
 public interface CmsGroupDetailMapper {
     /**
      * 通过cmsId获取cms组合搭配详情列表
-     * @param cmsId
+     * @param cmsDetailId
      * @return
      */
     List<CmsGroupDetail> findByCmsDetailId(Integer cmsDetailId);

@@ -1,19 +1,13 @@
 package com.senhome.shell.common.dal.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
 /**
  * 基础数据对象
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Data
 public abstract class BaseDO {
 	/**
 	 * 主键ID
