@@ -24,7 +24,7 @@ public class AccountServiceImpl implements AccountServiceApi
         if(account != null)
         {
             viewResult.setSuccess(false);
-            viewResult.setMessage("用户邮箱已注册");
+            viewResult.setMessage("email has been register");
             return viewResult;
         }
         else
@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountServiceApi
             else
             {
                 viewResult.setSuccess(false);
-                viewResult.setMessage("注册失败");
+                viewResult.setMessage("login fail");
                 return viewResult;
             }
         }
