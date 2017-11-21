@@ -50,29 +50,14 @@ public class CustomServletRequestDataBinder extends ExtendedServletRequestDataBi
     protected void addBindValues(MutablePropertyValues mpvs, ServletRequest request)
     {
         super.addBindValues(mpvs, request);
-        //mpvs.add("ip", HttpServletUtils.getRemoteIpAddr((HttpServletRequest)request));
-        
-        // 获取请求来源
-//        String source = ObjectUtils.defaultIfNull(mpvs.get("source"), RequestSource.APP.getCode()).toString();
-        
-//        RequestSource requestSource = EnumUtils.getEnumByCode(RequestSource.class, Integer.valueOf(source));
-//        // app请求,需要对参数进行处理
-//        if (RequestSource.APP == requestSource)
-//        {
-            String param = ObjectUtils.defaultIfNull(mpvs.get("params"), "").toString();
-            JSONObject paramJson = JSONObject.parseObject(param);
-            if (paramJson != null)
-            {
-                paramJson.entrySet().stream().filter(entry -> mpvs.get(entry.getKey()) == null).forEach(
-                    entry -> mpvs.add(entry.getKey(), entry.getValue()));
-            }
-//        }
-//        else
-//        {
-//            Cookie cookie = HttpServletUtils.getCookieByName((HttpServletRequest)request, WEB_USER_TRACK_TOKEN);
-//            String imei = request.getAttribute(WEB_USER_TRACK_TOKEN) == null ? "" : request.getAttribute(WEB_USER_TRACK_TOKEN).toString();
-//            mpvs.add("webTrackImei", cookie == null ? imei : cookie.getValue());
-//        }
+
+        String param = ObjectUtils.defaultIfNull(mpvs.get("params"), "").toString();
+        JSONObject paramJson = JSONObject.parseObject(param);
+        if (paramJson != null)
+        {
+            paramJson.entrySet().stream().filter(entry -> mpvs.get(entry.getKey()) == null).forEach(
+                entry -> mpvs.add(entry.getKey(), entry.getValue()));
+        }
     }
     
 }
