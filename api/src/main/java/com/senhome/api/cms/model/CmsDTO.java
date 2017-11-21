@@ -1,16 +1,10 @@
 package com.senhome.api.cms.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Data
 public class CmsDTO{
     /**
      * 模版详情列表

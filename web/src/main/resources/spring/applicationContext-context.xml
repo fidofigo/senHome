@@ -23,12 +23,12 @@
 		<!--</mvc:message-converters>-->
 	<!--</mvc:annotation-driven>-->
 
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-				<bean class="com.senhome.web.interceptor.CommonInterceptor">
-			</bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--<mvc:mapping path="/**" />-->
+				<!--<bean class="com.senhome.web.interceptor.CommonInterceptor">-->
+			<!--</bean>-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
 	
 </beans>

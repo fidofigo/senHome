@@ -1,16 +1,10 @@
 package com.senhome.api.cms.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Data
 public class CmsDetailDTO{
     /**
      * 模版类型，1：组合搭配模块；2：商品展示区域(1行3张)；3：导航；4：滑动banner；5：滑动商品 6：商品展示区域(1行2张)

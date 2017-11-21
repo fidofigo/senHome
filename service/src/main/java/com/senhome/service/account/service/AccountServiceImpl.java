@@ -1,6 +1,7 @@
 package com.senhome.service.account.service;
 
 import com.senhome.api.account.api.AccountServiceApi;
+import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
 import com.senhome.service.account.dal.dataobject.Account;
 import com.senhome.shell.common.result.ViewResult;
@@ -35,7 +36,10 @@ public class AccountServiceImpl implements AccountServiceApi
 
             if(accountBusiness.insertAccount(account) > 0)
             {
-                return viewResult;
+                AccountDTO accountDTO = new AccountDTO();
+                accountDTO.setAccountId(account.getId());
+
+                return ViewResult.ofSuccess().putDefaultModel(accountDTO);
             }
             else
             {
@@ -56,19 +60,22 @@ public class AccountServiceImpl implements AccountServiceApi
         if(account == null)
         {
             viewResult.setSuccess(false);
-            viewResult.setMessage("用户不存在");
+            viewResult.setMessage("account not exist");
             return viewResult;
         }
         else
         {
             if(pwd.equals(account.getPwd()))
             {
-                return viewResult;
+                AccountDTO accountDTO = new AccountDTO();
+                accountDTO.setAccountId(account.getId());
+
+                return ViewResult.ofSuccess().putDefaultModel(accountDTO);
             }
             else
             {
                 viewResult.setSuccess(false);
-                viewResult.setMessage("密码错误");
+                viewResult.setMessage("password error");
                 return viewResult;
             }
         }
