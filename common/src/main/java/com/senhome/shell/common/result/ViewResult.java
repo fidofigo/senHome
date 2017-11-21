@@ -16,9 +16,9 @@ public class ViewResult {
     private static String CODE_SUCCESS = "success";
     private static String CODE_FAIL = "error";
 
-    private static String MESSAGE_SUCCESS = "success！";
-    private static String MESSAGE_FAIL = "fail！";
-    private static String MESSAGE_ERROR = "error！";
+    private static String MESSAGE_SUCCESS = "success!";
+    private static String MESSAGE_FAIL = "fail!";
+    private static String MESSAGE_ERROR = "error!";
 
     private static String KEY_CODE = "code";
     private static String KEY_MESSAGE = "message";
