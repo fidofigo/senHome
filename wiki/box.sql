@@ -19,23 +19,24 @@ CREATE TABLE account (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='账号表';
 
-CREATE TABLE product_base(
+CREATE TABLE goods_base(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
 	`category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '类目id',
-  `image1` varchar(100) NOT NULL DEFAULT '' COMMENT '商品主图',
+  `image` varchar(100) NOT NULL DEFAULT '' COMMENT '商品主图',
   `name` varchar(64) NOT NULL DEFAULT '' COMMENT '商品名称',
   `brand` varchar(64) NOT NULL DEFAULT '' COMMENT '品牌',
   `country` varchar(64) NOT NULL DEFAULT '' COMMENT '产地',
-  `income` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '收益',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+  KEY `idx_category_id` (`category_id`) USING BTREE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基础商品表';
 
-CREATE TABLE product_information(
+CREATE TABLE goods(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-	`product_base_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '基础商品id',
+	`goods_base_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '基础商品id',
+	`category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '类目id',
   `image1` varchar(100) NOT NULL DEFAULT '' COMMENT '商品主图',
   `image2` varchar(100) NOT NULL DEFAULT '' COMMENT '品牌图片2',
   `image3` varchar(100) NOT NULL DEFAULT '' COMMENT '品牌图片3',
@@ -46,31 +47,35 @@ CREATE TABLE product_information(
   `market_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '供货价，分为单位',
   `sales_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '销售价，分为单位',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `income` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '收益',
   `limit` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '加入购物车限制',
-	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+  KEY `idx_goods_base_id` (`goods_base_id`) USING BTREE,
+  KEY `idx_category_id` (`category_id`) USING BTREE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
-CREATE TABLE product_detail(
+CREATE TABLE goods_detail(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-	`product_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+	`goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
   `url` varchar(100) NOT NULL DEFAULT '' COMMENT '详情图片',
   `width`   int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '图片宽度',
   `height`  int(11) unsigned    NOT NULL DEFAULT '0' COMMENT '图片高度',
   `sequence` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序值，从小到大排序',
   `link` varchar(200) NOT NULL DEFAULT '' COMMENT '跳转URL',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+  KEY `idx_goods_id` (`goods_id`) USING BTREE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品详情表';
 
 CREATE TABLE category(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '类目名称',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品类目表';
@@ -84,19 +89,19 @@ CREATE TABLE `order` (
   `phone` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
   `pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '付款时间',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
 
-CREATE TABLE `order_product` (
+CREATE TABLE `order_goods` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `order_id` int(11) unsigned NOT NULL COMMENT '订单id',
-  `product_id` int(11) unsigned NOT NULL COMMENT '货架商品id',
+  `goods_id` int(11) unsigned NOT NULL COMMENT '商品id',
   `sales_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '单价，分为单位',
   `count` int(5) unsigned NOT NULL DEFAULT '1' COMMENT '商品数量',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单商品表';
@@ -115,7 +120,7 @@ CREATE TABLE `relation_group_product` (
   `id`           INT(11) UNSIGNED     NOT NULL AUTO_INCREMENT COMMENT 'id',
   `is_available` TINYINT(3) UNSIGNED  NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `group_id`     INT(11) UNSIGNED     NOT NULL DEFAULT '0' COMMENT '组合id',
-  `produc_id`    INT(11) UNSIGNED     NOT NULL DEFAULT '0' COMMENT '商品id',
+  `product_id`    INT(11) UNSIGNED     NOT NULL DEFAULT '0' COMMENT '商品id',
   `sequence`     SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序值，从小到大排序',
   `create_time`  TIMESTAMP            NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `update_time`  TIMESTAMP            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

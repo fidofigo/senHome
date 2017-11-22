@@ -6,7 +6,13 @@ import lombok.*;
 @Data
 public class Account extends BaseDO
 {
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 密码
+     */
     private String pwd;
 }

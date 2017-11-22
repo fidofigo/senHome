@@ -18,15 +18,16 @@ public class AccountController
     private AccountServiceApi accountServiceApi;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Object login(AccountParam accountParam){
+    public Object login(AccountParam accountParam)
+    {
         ViewResult result = accountServiceApi.login(accountParam.getEmail(), accountParam.getPwd());
 
         return result.toJson();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    public Object register(AccountParam accountParam){
+    public Object register(AccountParam accountParam)
+    {
         ViewResult result = accountServiceApi.register(accountParam.getEmail(), accountParam.getPwd());
 
         return result.toJson();

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.goods.dal.mapper.GoodsMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.goods.dal.dataobject.Goods" >
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="goods_base_id" property="goodsBaseId"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="image1" property="image1"/>
+        <result column="image2" property="image2"/>
+        <result column="image3" property="image3"/>
+        <result column="image4" property="image4"/>
+        <result column="image5" property="image5"/>
+        <result column="desc" property="desc"/>
+        <result column="market_price" property="marketPrice"/>
+        <result column="sales_price" property="salesPrice"/>
+        <result column="income" property="income"/>
+        <result column="limit" property="limit"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, `name`, category_id, goods_base_id, image1, image2, image3, image4, image5,
+        `desc`, market_price, sales_price, income, `limit`, is_available, create_time, update_time
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from goods
+        where is_available = 1
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from goods
+        where
+        is_available = 1 and id = #{id}
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from goods
+        where is_available = 1
+        and id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findByCategoryId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where is_available = 1 and category_id = #{categoryId}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+</mapper>

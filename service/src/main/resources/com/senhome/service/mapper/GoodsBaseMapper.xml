@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.goods.dal.mapper.GoodsBaseMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.goods.dal.dataobject.GoodsBase" >
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="brand" property="brand"/>
+        <result column="country" property="country"/>
+        <result column="image" property="image"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, `name`, category_id, brand, country, image, is_available, create_time, update_time
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from goods_base
+        where
+        is_available = 1 and id = #{id}
+    </select>
+
+</mapper>
