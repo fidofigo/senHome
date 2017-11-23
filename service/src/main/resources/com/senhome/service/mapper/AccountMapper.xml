@@ -31,4 +31,20 @@
         INSERT INTO account(email, pwd, create_time) VALUES(#{email}, #{pwd}, now())
     </insert>
 
+    <update id="updateAccount">
+        update account
+        <set>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="pwd != null">
+                pwd = #{pwd},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

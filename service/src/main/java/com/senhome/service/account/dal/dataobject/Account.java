@@ -15,4 +15,9 @@ public class Account extends BaseDO
      * 密码
      */
     private String pwd;
+
+    /**
+     * 邀请码
+     */
+    private String code;
 }

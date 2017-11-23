@@ -13,6 +13,7 @@ CREATE TABLE account (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱地址',
   `pwd` varchar(16) default '' not null comment '账号密码',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '邀请码',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

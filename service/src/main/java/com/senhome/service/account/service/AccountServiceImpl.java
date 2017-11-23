@@ -4,6 +4,7 @@ import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
 import com.senhome.service.account.dal.dataobject.Account;
+import com.senhome.shell.common.lang.InviteCodeUtil;
 import com.senhome.shell.common.result.ViewResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,9 @@ public class AccountServiceImpl implements AccountServiceApi
 
             if(accountBusiness.insertAccount(account) > 0)
             {
+                account.setCode(InviteCodeUtil.getInviteCode(account.getId()));
+                accountBusiness.updateAccount(account);
+
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
 

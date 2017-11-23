@@ -40,4 +40,14 @@ public class AccountBusiness
 
         return accountMapper.insert(account);
     }
+
+    public int updateAccount(Account account)
+    {
+        if(account == null)
+        {
+            return 0;
+        }
+
+        return accountMapper.updateAccount(account);
+    }
 }

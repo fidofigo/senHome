@@ -26,4 +26,6 @@ public interface AccountMapper
      * @return
      */
     int insert(Account account);
+
+    int updateAccount(Account account);
 }
