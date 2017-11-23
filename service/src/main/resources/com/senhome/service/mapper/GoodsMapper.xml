@@ -35,6 +35,18 @@
         limit #{start}, #{pageCount}
     </select>
 
+    <select id="findAllCount" resultMap="BaseResultMap" >
+        select count(1)
+        from goods
+        where is_available = 1
+    </select>
+
+    <select id="findCountByCategoryId" resultMap="BaseResultMap" >
+        select count(1)
+        from goods
+        where is_available = 1 and category_id = #{categoryId}
+    </select>
+
     <select id="findById" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from goods

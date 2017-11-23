@@ -62,6 +62,23 @@ public class GoodsBusiness
         }
     }
 
+    public Integer findGoodsCountByCategoryId(Integer categoryId)
+    {
+        if(categoryId == null)
+        {
+            return 0;
+        }
+
+        if(categoryId == 0)
+        {
+            return goodsMapper.findAllCount();
+        }
+        else
+        {
+            return goodsMapper.findCountByCategoryId(categoryId);
+        }
+    }
+
     public List<GoodsDetail> findGoodsDetailByGoodsId(Integer goodsId)
     {
         if(goodsId == null)

@@ -1,10 +1,11 @@
 CREATE TABLE banner (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `image` varchar(100) NOT NULL DEFAULT '' COMMENT '图片地址',
-  `url` varchar(100) NOT NULL DEFAULT '' COMMENT '访问URL',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '访问类型；1:商品',
+  `display_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '类型id',
   `sequence` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='banner';
@@ -15,7 +16,7 @@ CREATE TABLE account (
   `pwd` varchar(16) default '' not null comment '账号密码',
   `code` varchar(50) NOT NULL DEFAULT '' COMMENT '邀请码',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='账号表';
@@ -75,6 +76,7 @@ CREATE TABLE goods_detail(
 CREATE TABLE category(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '类目名称',
+  `sequence` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序值，从小到大排序',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
 	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
