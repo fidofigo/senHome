@@ -67,8 +67,11 @@ public class AccountServiceImpl implements AccountServiceApi
 
             if(accountBusiness.insertAccount(account) > 0)
             {
-                account.setCode(InviteCodeUtil.getInviteCode(account.getId()));
-                accountBusiness.updateAccount(account);
+                //生成并插入邀请码
+                Account accountCode = new Account();
+                accountCode.setCode(InviteCodeUtil.getInviteCode(account.getId()));
+                accountCode.setId(account.getId());
+                accountBusiness.updateAccount(accountCode);
 
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
