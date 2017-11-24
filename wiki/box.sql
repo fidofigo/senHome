@@ -21,6 +21,17 @@ CREATE TABLE account (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='账号表';
 
+CREATE TABLE invite (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `account_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账户id',
+  `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱地址',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_account_id` (`account_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='邀请表';
+
 CREATE TABLE goods_base(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
 	`category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '类目id',

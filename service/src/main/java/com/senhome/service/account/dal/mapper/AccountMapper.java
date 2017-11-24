@@ -27,5 +27,10 @@ public interface AccountMapper
      */
     int insert(Account account);
 
+    /**
+     * 更新用户信息
+     * @param account
+     * @return
+     */
     int updateAccount(Account account);
 }
