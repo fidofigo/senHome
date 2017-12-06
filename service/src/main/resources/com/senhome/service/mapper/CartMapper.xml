@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.cart.dal.mapper.CartMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.cart.dal.dataobject.Cart" >
+        <id column="id" property="id"/>
+        <result column="account_id" property="accountId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_count" property="goodsCount"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, account_id, goods_id, goods_count, is_available, create_time, update_time
+    </sql>
+
+    <select id="findCartByAccountId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shopping_cart
+        where is_available = 1 and account_id = #{accountId}
+    </select>
+
+    <select id="findCountByAccountId" resultType="int" >
+        select sum(goods_count)
+        from shopping_cart
+        where is_available = 1 and account_id = #{accountId}
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shopping_cart
+        where is_available = 1 and id = #{id}
+    </select>
+
+    <select id="findByAccountIdAndGoodsId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shopping_cart
+        where is_available = 1 and account_id = #{accountId} and goods_id = #{goodsId}
+    </select>
+
+    <insert id="insertCart" parameterType="com.senhome.service.cart.dal.dataobject.Cart" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO shopping_cart(account_id, goods_id, goods_count, create_time) VALUES(#{accountId}, #{goodsId}, #{goodsCount}, now())
+    </insert>
+
+    <update id="updateCart">
+        update shopping_cart
+        <set>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId},
+            </if>
+            <if test="goodsCount != null">
+                goods_count = #{goodsCount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCartByIds" parameterType="int">
+        delete from shopping_cart
+        where id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

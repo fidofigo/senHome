@@ -35,13 +35,13 @@
         limit #{start}, #{pageCount}
     </select>
 
-    <select id="findAllCount" resultMap="BaseResultMap" >
+    <select id="findAllCount" resultType="int" >
         select count(1)
         from goods
         where is_available = 1
     </select>
 
-    <select id="findCountByCategoryId" resultMap="BaseResultMap" >
+    <select id="findCountByCategoryId" resultType="int" >
         select count(1)
         from goods
         where is_available = 1 and category_id = #{categoryId}

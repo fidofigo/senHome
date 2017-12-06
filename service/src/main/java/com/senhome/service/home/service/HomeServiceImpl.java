@@ -28,7 +28,6 @@ public class HomeServiceImpl implements HomeServiceApi
     @Autowired
     private CategoryBusiness categoryBusiness;
 
-
     @Override
     public ViewResult homeDetail()
     {

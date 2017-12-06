@@ -99,6 +99,6 @@ public class GoodsServiceImpl implements GoodsServiceApi
         goodsDTO.setImageList(imageList);
         goodsDTO.setGoodsBase(goodsBaseDTO);
 
-        return ViewResult.ofSuccess().putDefaultModel(goodsDTO);
+        return viewResult.putDefaultModel(goodsDTO);
     }
 }

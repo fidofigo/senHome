@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountServiceApi
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
 
-                return ViewResult.ofSuccess().putDefaultModel(accountDTO);
+                return viewResult.putDefaultModel(accountDTO);
             }
             else
             {
@@ -76,7 +76,7 @@ public class AccountServiceImpl implements AccountServiceApi
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
 
-                return ViewResult.ofSuccess().putDefaultModel(accountDTO);
+                return viewResult.putDefaultModel(accountDTO);
             }
             else
             {

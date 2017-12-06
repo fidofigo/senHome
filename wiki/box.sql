@@ -120,6 +120,17 @@ CREATE TABLE `order_goods` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单商品表';
 
+CREATE TABLE `shopping_cart` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `account_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `goods_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品数量',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物车表';
+
 CREATE TABLE `group` (
   `id`           int(11) unsigned    NOT NULL AUTO_INCREMENT COMMENT 'id',
   `remark`       varchar(100)        NOT NULL DEFAULT '' COMMENT '备注',
