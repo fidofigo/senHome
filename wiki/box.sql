@@ -98,9 +98,9 @@ CREATE TABLE `order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `account_id` int(11) unsigned NOT NULL COMMENT '账号id',
   `total_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总价，分为单位',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态；1：已提交，2：已处理，3：已完成，4：已取消',
-  `address` varchar(100) NOT NULL DEFAULT '' COMMENT '地址',
-  `phone` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态；1：待付款，2：待配送，3：配送中，4：交易成功，5：已取消',
+  `pay_channel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '支付渠道；1：信用卡',
+  `receive_address_id` int(11) unsigned NOT NULL COMMENT '收货地址id',
   `pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '付款时间',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
@@ -119,6 +119,41 @@ CREATE TABLE `order_goods` (
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单商品表';
+
+CREATE TABLE `order_confirm` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `account_id` int(11) unsigned NOT NULL COMMENT '账号id',
+  `number` varchar(50) NOT NULL DEFAULT '' COMMENT '订单确认编号',
+  `total_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总价，分为单位',
+  `addressId` int(11) unsigned NOT NULL COMMENT '地址id',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单确认表';
+
+CREATE TABLE `order_confirm_goods` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `order_confirm_id` int(11) unsigned NOT NULL COMMENT '订单确认id',
+  `goods_id` int(11) unsigned NOT NULL COMMENT '商品id',
+  `count` int(5) unsigned NOT NULL DEFAULT '1' COMMENT '商品数量',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单确认商品表';
+
+CREATE TABLE `receive_address` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `account_id` int(11) unsigned NOT NULL COMMENT '账号id',
+  `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+  `detail_address` varchar(50) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收货地址表';
 
 CREATE TABLE `shopping_cart` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
