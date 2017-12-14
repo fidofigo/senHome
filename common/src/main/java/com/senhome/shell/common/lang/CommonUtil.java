@@ -8,6 +8,7 @@ import java.util.*;
 public class CommonUtil {
 	public static final Charset UTF_8		= Charset.forName("UTF-8");
 	public static final String LOG_SPLITER	= "|";
+    public static final String PLATFORM_IDENTITY_CODE = "1";
 
 	/**
 	 * 格式化统计日志
@@ -155,7 +156,7 @@ public class CommonUtil {
 	/**
 	 * 判断Map是否为空
 	 * 
-	 * @param arr
+	 * @param map
 	 * @return
 	 */
 	public static <K, V> boolean isEmpty(Map<K, V> map) {
@@ -174,5 +175,23 @@ public class CommonUtil {
 			return false;
 		}
 		return o1 == o2 || o1.equals(o2);
+	}
+
+	/**
+	 * 生成一个唯一的事务ID
+	 *
+	 * @return
+	 */
+	public synchronized static Long generateTransactionId()
+	{
+		try
+		{
+			Thread.sleep(1);
+		}
+		catch (InterruptedException e)
+		{
+			return null;
+		}
+		return Long.parseLong(System.currentTimeMillis() + PLATFORM_IDENTITY_CODE);
 	}
 }

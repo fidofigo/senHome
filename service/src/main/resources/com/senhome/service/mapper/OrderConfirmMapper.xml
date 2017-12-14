@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.order.dal.mapper.OrderConfirmMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.order.dal.dataobject.OrderConfirm" >
+        <id column="id" property="id"/>
+        <result column="account_id" property="accountId"/>
+        <result column="number" property="number"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="receive_address_id" property="receiveAddressId"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, account_id, `number`, total_price, address_id, is_available, create_time, update_time
+    </sql>
+
+    <select id="findByNumber" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from order_confirm
+        where is_available = 1 and `number` = #{number}
+    </select>
+
+    <insert id="insertOrderConfirm" parameterType="com.senhome.service.order.dal.dataobject.OrderConfirm" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_confirm(account_id, `number`, total_price, receive_address_id, create_time) VALUES(#{accountId}, #{number}, #{totalPrice}, #{receiveAddressId}, now())
+    </insert>
+
+</mapper>

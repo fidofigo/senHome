@@ -24,6 +24,16 @@ public class CartBusiness
         return cartMapper.findCartByAccountId(accountId);
     }
 
+    public List<Cart> findCartByCartListAndAccountId(List<Integer> ids, Integer accountId)
+    {
+        if(accountId == null || CollectionUtils.isEmpty(ids))
+        {
+            return null;
+        }
+
+        return cartMapper.findCartByCartListAndAccountId(ids, accountId);
+    }
+
     public Cart findByCartId(Integer id)
     {
         if(id == null)

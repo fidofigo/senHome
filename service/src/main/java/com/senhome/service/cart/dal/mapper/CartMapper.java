@@ -17,6 +17,14 @@ public interface CartMapper
     List<Cart> findCartByAccountId(Integer accountId);
 
     /**
+     * 获取用户购物车商品
+     * @param ids
+     * @param accountId
+     * @return
+     */
+    List<Cart> findCartByCartListAndAccountId(@Param("ids") List<Integer> ids, @Param("accountId") Integer accountId);
+
+    /**
      * 获取用户购物车商品数量
      * @param accountId
      * @return

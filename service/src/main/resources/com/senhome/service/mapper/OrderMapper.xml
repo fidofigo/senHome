@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.order.dal.mapper.OrderMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.order.dal.dataobject.Order" >
+        <id column="id" property="id"/>
+        <result column="account_id" property="accountId"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="type" property="type"/>
+        <result column="pay_channel" property="payChannel"/>
+        <result column="receive_address_id" property="receiveAddressId"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, account_id, total_price, `type`, pay_channel, receive_address_id, pay_time, is_available, create_time, update_time
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from `order`
+        where is_available = 1 and id = #{id}
+    </select>
+
+    <select id="findByAccountId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from `order`
+        where is_available = 1 and account_id = #{accountId}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+    <select id="findByTypeAndAccountId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from `order`
+        where is_available = 1 and account_id = #{accountId} and `type` = #{type}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.senhome.service.order.dal.dataobject.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order`(account_id, total_price, `type`, pay_channel, receive_address_id, create_time) VALUES(#{accountId}, #{totalPrice}, #{type}, #{payChannel}, #{receiveAddressId}, now())
+    </insert>
+
+    <update id="updateOrder">
+        update shopping_cart
+        <set>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="payChannel != null">
+                pay_channel = #{payChannel},
+            </if>
+            <if test="receiveAddressId != null">
+                receive_address_id = #{receiveAddressId},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>

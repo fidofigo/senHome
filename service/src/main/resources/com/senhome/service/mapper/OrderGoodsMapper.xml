@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.order.dal.mapper.OrderGoodsMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.order.dal.dataobject.OrderGoods" >
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="sales_price" property="salesPrice"/>
+        <result column="count" property="count"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, order_id, goods_id, sales_price, `count`, is_available, create_time, update_time
+    </sql>
+
+    <select id="findByOrderId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from order_goods
+        where is_available = 1 and order_id = #{orderId}
+    </select>
+
+    <insert id="insertOrderGoods" parameterType="com.senhome.service.order.dal.dataobject.OrderGoods" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_goods(order_id, goods_id, sales_price, `count`, create_time) VALUES(#{orderId}, #{goodsId}, #{salesPrice}, #{count}, now())
+    </insert>
+
+    <select id="findByOrderIdList" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from order_goods
+        where is_available = 1
+        and order_id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
