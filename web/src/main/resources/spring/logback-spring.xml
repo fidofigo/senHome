@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <property name="LOG_HOME" value="/logs/senhome"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%10.10t] [%c{1}.%M] Line:[%L] - %m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 出错日志 appender  -->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/senhome_error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>${LOG_HOME}/senhome_error.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%10.10t] [%c{1}.%M] Line:[%L] - %m%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 访问日志 appender  -->
+    <appender name="ACCESS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/senhome_access.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>/${LOG_HOME}/senhome_access.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%10.10t] [%c{1}.%M] Line:[%L] - %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- info日志 appender  -->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/senhome_info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>${LOG_HOME}/senhome_info.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%10.10t] [%c{1}.%M] Line:[%L] - %m%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <appender name="SlowSql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/senhome_slow_sql.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>${LOG_HOME}/senhome_slow_sql.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%10.10t] [%c{1}.%M] Line:[%L] - %m%n</Pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="org.springframework.web" additivity="false" level="INFO">
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="ACCESS"/>
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <!--com.ggj.common,所有通过logger.xxx()显示打印的日志全部用这个logger来输出,additivity为false表示上层(rootLogger)不再重复输出-->
+    <logger name="com.senhome" additivity="false" level="DEBUG">
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="ACCESS"/>
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="com.alibaba.druid.filter.stat.StatFilter" additivity="false">
+        <appender-ref ref="SlowSql"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <!-- 开发环境+测试环境 多个使用逗号隔开. -->
+    <springProfile name="dev,test">
+        <logger name="org.springframework.web" level="DEBUG"/>
+        <logger name="com.ggj.common" level="DEBUG"/>
+        <logger name="com.alibaba.druid.filter.stat.StatFilter" level="DEBUG"/>
+    </springProfile>
+
+    <!-- 生产环境 -->
+    <springProfile name="prod">
+        <logger name="org.springframework.web" level="INFO"/>
+        <logger name="com.ggj.common" level="INFO"/>
+        <logger name="com.alibaba.druid.filter.stat.StatFilter" level="INFO"/>
+    </springProfile>
+
+</configuration>

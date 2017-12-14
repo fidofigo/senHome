@@ -1,8 +1,11 @@
 package com.senhome.web.account.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.shell.common.result.ViewResult;
 import com.senhome.web.account.param.AccountParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,12 +17,15 @@ import javax.annotation.Resource;
 @RequestMapping("/appNative/account")
 public class AccountController
 {
+    private Logger logger = LoggerFactory.getLogger(AccountController.class);
+
     @Resource
     private AccountServiceApi accountServiceApi;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Object login(AccountParam accountParam)
     {
+        logger.info("login" + JSONObject.toJSONString(accountParam));
         ViewResult result = accountServiceApi.login(accountParam.getEmail(), accountParam.getPwd());
 
         return result.toJson();
