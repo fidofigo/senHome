@@ -6,10 +6,12 @@ import com.senhome.service.goods.dal.dataobject.GoodsDetail;
 import com.senhome.service.goods.dal.mapper.GoodsBaseMapper;
 import com.senhome.service.goods.dal.mapper.GoodsDetailMapper;
 import com.senhome.service.goods.dal.mapper.GoodsMapper;
+import com.senhome.shell.common.redis.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,6 +26,9 @@ public class GoodsBusiness
 
     @Autowired
     private GoodsBaseMapper goodsBaseMapper;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     public Goods findGoodsById(Integer id)
     {

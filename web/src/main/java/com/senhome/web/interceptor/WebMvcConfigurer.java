@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -92,7 +93,7 @@ public class WebMvcConfigurer extends WebMvcAutoConfiguration.EnableWebMvcConfig
         return customAdapter;
     }
 
-//    @Bean(name ="freemarkerConfig")
+    //    @Bean(name ="freemarkerConfig")
 //    public FreeMarkerConfigurer freemarkerConfig() {
 //        FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
 //        configurer.setTemplateLoaderPath("/WEB-INF/views/");
