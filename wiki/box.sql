@@ -15,6 +15,10 @@ CREATE TABLE account (
   `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱地址',
   `pwd` varchar(16) default '' not null comment '账号密码',
   `code` varchar(50) NOT NULL DEFAULT '' COMMENT '邀请码',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1：用户，2：商家',
+  `head` varchar(100) NOT NULL DEFAULT '' COMMENT '头像地址',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名称',
+  `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -97,6 +101,7 @@ CREATE TABLE category(
 CREATE TABLE `order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `account_id` int(11) unsigned NOT NULL COMMENT '账号id',
+  `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id',
   `total_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总价，分为单位',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态；1：待付款，2：待配送，3：配送中，4：交易成功，5：已取消',
   `pay_channel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '支付渠道；1：信用卡',
@@ -123,6 +128,7 @@ CREATE TABLE `order_goods` (
 CREATE TABLE `order_confirm` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `account_id` int(11) unsigned NOT NULL COMMENT '账号id',
+  `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id',
   `number` varchar(50) NOT NULL DEFAULT '' COMMENT '订单确认编号',
   `total_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总价，分为单位',
   `receive_address_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收货地址id',
@@ -159,6 +165,7 @@ CREATE TABLE `receive_address` (
 CREATE TABLE `shopping_cart` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `account_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',
+  `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id',
   `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
   `goods_count` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '商品数量',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
@@ -188,6 +195,33 @@ CREATE TABLE `relation_group_product` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB DEFAULT CHARSET = utf8 COMMENT = '组合商品表';
+
+CREATE TABLE `shop`(
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺名称',
+  `account_id` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺用户',
+  `detail_address` varchar(200) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `is_open` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否开店；0：否，1：是',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+)
+  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='店铺表';
+
+CREATE TABLE shop_goods(
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id',
+  `goods_base_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '基础商品id',
+  `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
+  `lock` int(11) NOT NULL DEFAULT '0' COMMENT '锁定库存',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+)
+  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='店铺商品表';
 
 CREATE TABLE `cms` (
   `id`           INT(11) UNSIGNED    NOT NULL AUTO_INCREMENT
@@ -361,4 +395,3 @@ CREATE TABLE `cms_carousel_detail` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COMMENT = 'cms模版轮播详情';
-
