@@ -105,7 +105,7 @@ CREATE TABLE `order` (
   `total_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总价，分为单位',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态；1：待付款，2：待配送，3：配送中，4：交易成功，5：已取消',
   `pay_channel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '支付渠道；1：信用卡',
-  `receive_address_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收货地址id',
+  `order_receive_address_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单收货地址id',
   `pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '付款时间',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
@@ -162,6 +162,17 @@ CREATE TABLE `receive_address` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收货地址表';
 
+CREATE TABLE `order_receive_address` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+  `detail_address` varchar(50) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
+  `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单收货地址表';
+
 CREATE TABLE `shopping_cart` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `account_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',
@@ -201,6 +212,8 @@ CREATE TABLE `shop`(
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺名称',
   `account_id` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺用户',
   `detail_address` varchar(200) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `income` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收益，单位为分',
+  `withdraw` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收入(已提现)，单位为分',
   `is_open` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否开店；0：否，1：是',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
 	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -211,6 +224,7 @@ CREATE TABLE `shop`(
 
 CREATE TABLE shop_goods(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+	`category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '类目id',
   `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
   `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id',
   `goods_base_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '基础商品id',

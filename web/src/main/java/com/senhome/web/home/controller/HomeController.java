@@ -27,7 +27,7 @@ public class HomeController
     @RequestMapping(value = "/goodsDetail", method = RequestMethod.POST)
     public Object goodsDetail(HomeParam homeParam)
     {
-        ViewResult result = homeServiceApi.homeProductDetail(homeParam.getCategoryId(), homeParam.getPage(), homeParam.getPageCount());
+        ViewResult result = homeServiceApi.homeGoodsDetail(homeParam.getCategoryId(), homeParam.getPage(), homeParam.getPageCount());
 
         return result.toJson();
     }

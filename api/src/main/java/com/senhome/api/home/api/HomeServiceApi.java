@@ -8,5 +8,5 @@ public interface HomeServiceApi
 {
     ViewResult homeDetail();
 
-    ViewResult homeProductDetail(Integer categoryId, Integer page, Integer pageCount);
+    ViewResult homeGoodsDetail(Integer categoryId, Integer page, Integer pageCount);
 }

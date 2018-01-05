@@ -73,7 +73,7 @@ public class HomeServiceImpl implements HomeServiceApi
     }
 
     @Override
-    public ViewResult homeProductDetail(Integer categoryId, Integer page, Integer pageCount)
+    public ViewResult homeGoodsDetail(Integer categoryId, Integer page, Integer pageCount)
     {
         List<Goods> goodsList = goodsBusiness.findGoodsListByCategoryId(categoryId, page, pageCount);
 
