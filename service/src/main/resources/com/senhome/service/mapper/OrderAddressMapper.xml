@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.address.dal.mapper.OrderAddressMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.address.dal.dataobject.OrderAddress" >
+        <id column="id" property="id"/>
+        <result column="mobile_number" property="mobileNumber"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="name" property="name"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, mobile_number, detail_address, `name`, is_available, create_time, update_time
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from order_receive_address
+        where is_available = 1 and id = #{id}
+    </select>
+
+    <insert id="insertOrderAddress" parameterType="com.senhome.service.order.dal.dataobject.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_receive_address(mobile_number, detail_address, `name`, create_time) VALUES(#{mobileNumber}, #{detailAddress}, #{name}, now())
+    </insert>
+
+</mapper>

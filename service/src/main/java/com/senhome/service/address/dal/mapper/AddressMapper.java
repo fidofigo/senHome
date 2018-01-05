@@ -42,4 +42,18 @@ public interface AddressMapper
      * @return
      */
     int updateAddress(Address address);
+
+    /**
+     * 删除收货地址
+     * @param id
+     * @return
+     */
+    int deleteAddress(Integer id);
+
+    /**
+     * 更新默认地址
+     * @param accountId
+     * @return
+     */
+    int updateAddressDefault(Integer accountId);
 }

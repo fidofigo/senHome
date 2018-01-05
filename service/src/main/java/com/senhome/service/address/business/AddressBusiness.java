@@ -1,7 +1,9 @@
 package com.senhome.service.address.business;
 
 import com.senhome.service.address.dal.dataobject.Address;
+import com.senhome.service.address.dal.dataobject.OrderAddress;
 import com.senhome.service.address.dal.mapper.AddressMapper;
+import com.senhome.service.address.dal.mapper.OrderAddressMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class AddressBusiness
     @Autowired
     private AddressMapper addressMapper;
 
+    @Autowired
+    private OrderAddressMapper orderAddressMapper;
+
     public Address findAddressById(Integer id)
     {
         if(id == null)
@@ -21,6 +26,16 @@ public class AddressBusiness
         }
 
         return addressMapper.findById(id);
+    }
+
+    public OrderAddress findOrderAddressById(Integer id)
+    {
+        if(id == null)
+        {
+            return null;
+        }
+
+        return orderAddressMapper.findById(id);
     }
 
     public Address findDefaultAddress(Integer accountId)
@@ -53,6 +68,26 @@ public class AddressBusiness
         return addressMapper.insertAddress(address);
     }
 
+    public Integer updateAddressDefault(Integer accountId)
+    {
+        if(accountId == null)
+        {
+            return null;
+        }
+
+        return addressMapper.updateAddressDefault(accountId);
+    }
+
+    public Integer insertOrderAddress(OrderAddress orderAddress)
+    {
+        if(orderAddress == null)
+        {
+            return 0;
+        }
+
+        return orderAddressMapper.insertOrderAddress(orderAddress);
+    }
+
     public Integer updateAddress(Address address)
     {
         if(address == null)
@@ -61,6 +96,16 @@ public class AddressBusiness
         }
 
         return addressMapper.updateAddress(address);
+    }
+
+    public Integer deleteAddress(Integer id)
+    {
+        if(id == null)
+        {
+            return null;
+        }
+
+        return addressMapper.deleteAddress(id);
     }
 
 }

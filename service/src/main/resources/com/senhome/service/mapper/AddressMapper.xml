@@ -65,5 +65,16 @@
         where id = #{id}
     </update>
 
+    <delete id="deleteAddress" parameterType="int">
+        delete from receive_address
+        where id = #{id}
+    </delete>
+
+    <update id="updateAddressDefault" parameterType="int">
+        update receive_address
+        set is_default = 0
+        where account_id = #{accountId}
+    </update>
+
 
 </mapper>
