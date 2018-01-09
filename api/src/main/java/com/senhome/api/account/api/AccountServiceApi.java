@@ -9,4 +9,6 @@ public interface AccountServiceApi
     ViewResult login(String email, String pwd);
 
     ViewResult register(String email, String pwd);
+
+    ViewResult shopLogin(String mobileNumber, String pwd);
 }

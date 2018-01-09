@@ -31,6 +31,16 @@ public class AccountBusiness
         return accountMapper.findByEmail(email);
     }
 
+    public Account findByMobileNumber(String mobileNumber)
+    {
+        if(mobileNumber == null)
+        {
+            return null;
+        }
+
+        return accountMapper.findByMobileNumber(mobileNumber);
+    }
+
     public int insertAccount(Account account)
     {
         if(account == null)

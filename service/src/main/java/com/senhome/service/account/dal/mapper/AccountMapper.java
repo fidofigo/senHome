@@ -21,6 +21,13 @@ public interface AccountMapper
     Account findByEmail(String email);
 
     /**
+     * 通过手机查询账号信息
+     * @param mobileNumber
+     * @return
+     */
+    Account findByMobileNumber(String mobileNumber);
+
+    /**
      * 插入用户信息
      * @param account
      * @return

@@ -20,4 +20,29 @@ public class Account extends BaseDO
      * 邀请码
      */
     private String code;
+
+    /**
+     * 1：用户，2：商家
+     */
+    private Byte type;
+
+    /**
+     * 手机号
+     */
+    private String mobileNumber;
+
+    /**
+     * 头像地址
+     */
+    private String head;
+
+    /**
+     * 用户名称
+     */
+    private String name;
+
+    /**
+     * 店铺id, type=2时有效
+     */
+    private Integer shopId;
 }

@@ -14,4 +14,9 @@ public class AccountParam
      * 密码
      */
     private String pwd;
+
+    /**
+     * 手机号
+     */
+    private String mobileNumber;
 }

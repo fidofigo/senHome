@@ -29,6 +29,23 @@ public class AccountServiceImpl implements AccountServiceApi
 
         logger.info("login viewResult=" + JSONObject.toJSONString(viewResult));
 
+        return getLoginViewResult(pwd, viewResult, account);
+    }
+
+    @Override
+    public ViewResult shopLogin(String mobileNumber, String pwd)
+    {
+        ViewResult viewResult = ViewResult.ofSuccess();
+
+        Account account = accountBusiness.findByMobileNumber(mobileNumber);
+
+        logger.info("login viewResult=" + JSONObject.toJSONString(viewResult));
+
+        return getLoginViewResult(pwd, viewResult, account);
+    }
+
+    private ViewResult getLoginViewResult(String pwd, ViewResult viewResult, Account account)
+    {
         if(account == null)
         {
             viewResult.setSuccess(false);
@@ -41,6 +58,7 @@ public class AccountServiceImpl implements AccountServiceApi
             {
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
+                accountDTO.setShopId(account.getShopId());
 
                 return viewResult.putDefaultModel(accountDTO);
             }

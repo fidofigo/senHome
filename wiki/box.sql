@@ -19,6 +19,7 @@ CREATE TABLE account (
   `head` varchar(100) NOT NULL DEFAULT '' COMMENT '头像地址',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名称',
   `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+  `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id, type=2时有效',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

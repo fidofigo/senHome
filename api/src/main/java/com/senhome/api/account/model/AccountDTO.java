@@ -9,4 +9,9 @@ public class AccountDTO
      * 账号id
      */
     private Integer accountId;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }

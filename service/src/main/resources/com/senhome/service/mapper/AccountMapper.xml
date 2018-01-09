@@ -6,25 +6,37 @@
         <id column="id" property="id"/>
         <result column="email" property="email"/>
         <result column="pwd" property="pwd"/>
+        <result column="head" property="head"/>
+        <result column="name" property="name"/>
+        <result column="mobile_number" property="mobileNumber"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="code" property="code" />
+        <result column="type" property="type" />
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, email, pwd, is_available, create_time, update_time
+        id, email, pwd, `type`, head, `name`, mobile_number, shop_id, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from account
-        where is_available = 1 and id = #{id}
+        where is_available = 1 and id = #{id} and `type` = 1
     </select>
 
     <select id="findByEmail" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from account
-        where is_available = 1 and email = #{email}
+        where is_available = 1 and email = #{email} and `type` = 1
+    </select>
+
+    <select id="findByMobileNumber" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from account
+        where is_available = 1 and mobile_number = #{mobileNumber} and `type` = 2
     </select>
 
     <insert id="insert" parameterType="com.senhome.service.account.dal.dataobject.Account" useGeneratedKeys="true" keyProperty="id">
