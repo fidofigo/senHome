@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.shop.dal.mapper.ShopMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.shop.dal.dataobject.Shop" >
+        <id column="id" property="id"/>
+        <result column="account_id" property="accountId"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="name" property="name"/>
+        <result column="income" property="income"/>
+        <result column="withdraw" property="withdraw"/>
+        <result column="mobile_number" property="mobileNumber"/>
+        <result column="is_open" property="isOpen"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, account_id, mobile_number, detail_address, `name`, income, withdraw, is_open, is_default, is_available, create_time, update_time
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shop
+        where is_available = 1 and id = #{id}
+    </select>
+
+    <update id="updateShop">
+        update receive_address
+        <set>
+            <if test="income != null">
+                income = #{income},
+            </if>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="detailAddress != null">
+                detail_address = #{detailAddress},
+            </if>
+            <if test="withdraw != null">
+                withdraw = #{withdraw},
+            </if>
+            <if test="isOpen != null">
+                is_open = #{isOpen},
+            </if>
+            <if test="mobileNumber != null">
+                mobile_number = #{mobileNumber},
+            </if>
+            <if test="isAvailable != null">
+                is_available = #{isAvailable},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

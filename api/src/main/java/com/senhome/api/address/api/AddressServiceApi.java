@@ -1,6 +1,5 @@
 package com.senhome.api.address.api;
 
-import com.senhome.api.address.model.AddressDTO;
 import com.senhome.shell.common.result.ViewResult;
 import org.springframework.stereotype.Component;
 

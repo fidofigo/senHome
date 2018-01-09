@@ -215,9 +215,10 @@ CREATE TABLE `shop`(
   `detail_address` varchar(200) NOT NULL DEFAULT '' COMMENT '详细地址',
   `income` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收益，单位为分',
   `withdraw` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收入(已提现)，单位为分',
+  `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
   `is_open` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否开店；0：否，1：是',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	PRIMARY KEY (`id`)
 )
