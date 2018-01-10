@@ -16,5 +16,7 @@ public interface OrderServiceApi
 
     ViewResult orderDetail(Integer orderId);
 
-    ViewResult orderList(Byte type, Integer page, Integer pageCount, Integer accountId);
+    ViewResult updateOrder(Integer orderId, Integer type);
+
+    ViewResult orderList(Byte type, Integer page, Integer pageCount, Integer accountId, Boolean isShop);
 }

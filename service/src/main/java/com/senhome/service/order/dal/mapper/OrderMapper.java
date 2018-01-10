@@ -36,6 +36,25 @@ public interface OrderMapper
     List<Order> findByTypeAndAccountId(@Param("accountId") int accountId, @Param("type") Byte type, @Param("start") int start, @Param("pageCount") int pageCount);
 
     /**
+     * 查询用户所有订单
+     * @param start
+     * @param pageCount
+     * @param shopId
+     * @return
+     */
+    List<Order> findByShopId(@Param("start") int start, @Param("pageCount") int pageCount, @Param("shopId") int shopId);
+
+    /**
+     * 查询用户不同状态的订单
+     * @param shopId
+     * @param type
+     * @param start
+     * @param pageCount
+     * @return
+     */
+    List<Order> findByTypeAndShopId(@Param("shopId") int shopId, @Param("type") Byte type, @Param("start") int start, @Param("pageCount") int pageCount);
+
+    /**
      * 新增订单
      * @param order
      * @return

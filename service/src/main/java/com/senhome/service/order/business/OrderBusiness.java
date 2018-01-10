@@ -57,6 +57,23 @@ public class OrderBusiness
         }
     }
 
+    public List<Order> findOrderByShopIdAndType(Integer shopId, int page, int pageCount, Byte type)
+    {
+        if(shopId == null)
+        {
+            return Collections.emptyList();
+        }
+
+        if(type == 0)
+        {
+            return orderMapper.findByShopId((page - 1) * pageCount, pageCount, shopId);
+        }
+        else
+        {
+            return orderMapper.findByTypeAndShopId(shopId, type, (page - 1) * pageCount, pageCount);
+        }
+    }
+
     public Integer insertOrder(Order order)
     {
         if(order == null)

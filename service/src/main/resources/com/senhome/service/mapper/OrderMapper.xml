@@ -42,6 +42,22 @@
         limit #{start}, #{pageCount}
     </select>
 
+    <select id="findByShopId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from `order`
+        where is_available = 1 and shop_id = #{shopId}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+    <select id="findByTypeAndShopId" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from `order`
+        where is_available = 1 and shop_id = #{shopId} and `type` = #{type}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
     <insert id="insertOrder" parameterType="com.senhome.service.order.dal.dataobject.Order" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `order`(account_id, total_price, `type`, pay_channel, receive_address_id, shop_id, create_time) VALUES(#{accountId}, #{totalPrice}, #{type}, #{payChannel}, #{receiveAddressId}, #{shopId}, now())
     </insert>

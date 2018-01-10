@@ -51,7 +51,7 @@ public class OrderController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object orderList(OrderListParam orderListParam)
     {
-        ViewResult result = orderServiceApi.orderList(orderListParam.getType(), orderListParam.getPage(), orderListParam.getPageCount(), orderListParam.getAccountId());
+        ViewResult result = orderServiceApi.orderList(orderListParam.getType(), orderListParam.getPage(), orderListParam.getPageCount(), orderListParam.getAccountId(), false);
 
         return result.toJson();
     }

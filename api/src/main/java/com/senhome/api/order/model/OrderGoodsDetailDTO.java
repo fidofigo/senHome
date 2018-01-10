@@ -29,4 +29,9 @@ public class OrderGoodsDetailDTO
      * 商品图片
      */
     private String image;
+
+    /**
+     * 收益
+     */
+    private Integer income;
 }

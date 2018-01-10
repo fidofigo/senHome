@@ -347,12 +347,39 @@ public class OrderServiceImpl implements OrderServiceApi
         orderDetail.setIsPay(order.getPayTime() == null ? 0 : 1);
         orderDetail.setOrderGoods(orderGoodsDetailDTOList);
         orderDetail.setPayPrice(order.getTotalPrice().toString());
+        orderDetail.setType(order.getType());
 
         return viewResult.putDefaultModel(orderDetail);
     }
 
     @Override
-    public ViewResult orderList(Byte type, Integer page, Integer pageCount, Integer accountId)
+    public ViewResult updateOrder(Integer orderId, Integer type)
+    {
+        ViewResult viewResult = ViewResult.ofSuccess();
+
+        if(orderId == null)
+        {
+            viewResult.setSuccess(false);
+            viewResult.setMessage("order not exist");
+            return viewResult;
+        }
+
+        Order order = new Order();
+        order.setId(orderId);
+        order.setType(Byte.valueOf(type.toString()));
+
+        if(orderBusiness.updateOrder(order) <= 0)
+        {
+            viewResult.setSuccess(false);
+            viewResult.setMessage("update order fail");
+            return viewResult;
+        }
+
+        return viewResult;
+    }
+
+    @Override
+    public ViewResult orderList(Byte type, Integer page, Integer pageCount, Integer accountId, Boolean isShop)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -364,7 +391,16 @@ public class OrderServiceImpl implements OrderServiceApi
         }
 
         //获取订单列表
-        List<Order> orderList = orderBusiness.findOrderByAccountIdAndType(accountId, page, pageCount, type);
+        List<Order> orderList = null;
+        if(isShop)
+        {
+            orderList = orderBusiness.findOrderByShopIdAndType(accountId, page, pageCount, type);
+        }
+        else
+        {
+            orderList = orderBusiness.findOrderByAccountIdAndType(accountId, page, pageCount, type);
+        }
+
         if(orderList == null || orderList.size() == 0)
         {
             return viewResult;
@@ -400,6 +436,7 @@ public class OrderServiceImpl implements OrderServiceApi
             List<OrderGoodsDetailDTO> goodsDetailDTOList = new ArrayList<>();
 
             List<OrderGoods> orderGoods = idGoodsMap.get(order.getId());
+            Integer income = 0;
             if(orderGoods == null || orderGoods.size() == 0)
             {
                 orderDetailDTO.setOrderGoods(goodsDetailDTOList);
@@ -421,11 +458,17 @@ public class OrderServiceImpl implements OrderServiceApi
                     orderGoodsDetail.setImage(goodsDetail.getImage1());
                     orderGoodsDetail.setName(goodsDetail.getName());
                     orderGoodsDetail.setPrice(goods.getSalesPrice().toString());
+                    income += goodsDetail.getIncome();
 
                     goodsDetailDTOList.add(orderGoodsDetail);
                 }
 
                 orderDetailDTO.setOrderGoods(goodsDetailDTOList);
+            }
+
+            if(isShop)
+            {
+                orderDetailDTO.setIncome(income);
             }
 
             orderDetailDTOList.add(orderDetailDTO);
