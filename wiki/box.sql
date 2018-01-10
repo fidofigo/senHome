@@ -233,7 +233,7 @@ CREATE TABLE shop_goods(
   `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
   `lock` int(11) NOT NULL DEFAULT '0' COMMENT '锁定库存',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
-	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	PRIMARY KEY (`id`)
 )

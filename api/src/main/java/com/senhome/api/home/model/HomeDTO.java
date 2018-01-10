@@ -16,4 +16,9 @@ public class HomeDTO
      * 类目列表
      */
     private List<CategoryDTO> category;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }

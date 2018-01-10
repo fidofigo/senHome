@@ -44,4 +44,15 @@ public class GoodsBaseDTO
      * 加入购物车限制
      */
     private Integer limit;
+
+
+    /**
+     * 库存
+     */
+    private Integer stock;
+
+    /**
+     * 收益
+     */
+    private Integer income;
 }

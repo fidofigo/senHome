@@ -29,4 +29,14 @@ public class HomeGoodsDetailDTO
      * 商品售价
      */
     private String salesPrice;
+
+    /**
+     * 库存
+     */
+    private Integer stock;
+
+    /**
+     * 收益
+     */
+    private Integer income;
 }

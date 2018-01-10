@@ -5,9 +5,11 @@ import com.senhome.api.goods.model.GoodsBaseDTO;
 import com.senhome.api.goods.model.GoodsDTO;
 import com.senhome.api.goods.model.GoodsImageDTO;
 import com.senhome.service.goods.business.GoodsBusiness;
+import com.senhome.service.goods.business.ShopGoodsBusiness;
 import com.senhome.service.goods.dal.dataobject.Goods;
 import com.senhome.service.goods.dal.dataobject.GoodsBase;
 import com.senhome.service.goods.dal.dataobject.GoodsDetail;
+import com.senhome.service.goods.dal.dataobject.ShopGoods;
 import com.senhome.shell.common.result.ViewResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,11 @@ public class GoodsServiceImpl implements GoodsServiceApi
     @Autowired
     private GoodsBusiness goodsBusiness;
 
+    @Autowired
+    private ShopGoodsBusiness shopGoodsBusiness;
+
     @Override
-    public ViewResult goodsDetail(Integer goodsId)
+    public ViewResult goodsDetail(Integer type, Integer goodsId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -57,6 +62,13 @@ public class GoodsServiceImpl implements GoodsServiceApi
         goodsBaseDTO.setMarketPrice(BigDecimal.valueOf(goods.getMarketPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
         goodsBaseDTO.setSalesPrice(BigDecimal.valueOf(goods.getSalesPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
         goodsBaseDTO.setName(goods.getName());
+
+        if(type == 2)
+        {
+            goodsBaseDTO.setIncome(goods.getIncome());
+            ShopGoods shopGoods = shopGoodsBusiness.findShopGoodsById(goodsId);
+            goodsBaseDTO.setStock(shopGoods == null ? 0 : shopGoods.getStock());
+        }
 
         //创建商品图片列表
         List<String> imageList = new ArrayList<>();

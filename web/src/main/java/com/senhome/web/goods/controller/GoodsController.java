@@ -24,7 +24,7 @@ public class GoodsController
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     public Object detail(GoodsParam goodsParam)
     {
-        ViewResult result = goodsServiceApi.goodsDetail(goodsParam.getGoodsId());
+        ViewResult result = goodsServiceApi.goodsDetail(1, goodsParam.getGoodsId());
 
         return result.toJson();
     }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component;
 @Component("goodsServiceApi")
 public interface GoodsServiceApi
 {
-    ViewResult goodsDetail(Integer goodsId);
+    ViewResult goodsDetail(Integer type, Integer goodsId);
 }

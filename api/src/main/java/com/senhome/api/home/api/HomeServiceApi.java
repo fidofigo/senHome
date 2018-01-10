@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component("homeServiceApi")
 public interface HomeServiceApi
 {
-    ViewResult homeDetail();
+    ViewResult homeDetail(Integer addressId);
 
-    ViewResult homeGoodsDetail(Integer categoryId, Integer page, Integer pageCount);
+    ViewResult homeGoodsDetail(Integer type, Integer categoryId, Integer shopId, Integer page, Integer pageCount);
 }

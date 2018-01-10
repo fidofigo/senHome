@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senhome.service.goods.dal.mapper.ShopGoodsMapper" >
+
+    <resultMap id="BaseResultMap" type="com.senhome.service.goods.dal.dataobject.ShopGoods" >
+        <id column="id" property="id"/>
+        <result column="goods_base_id" property="goodsBaseId"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="stock" property="stock"/>
+        <result column="lock" property="lock"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="is_available" property="isAvailable"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, category_id, goods_id, goods_base_id, shop_id, stock, lock, is_available, create_time, update_time
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shop_goods
+        where is_available = 1 and shop_id = #{shopId}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+    <select id="findAllCount" resultType="int" >
+        select count(1)
+        from shop_goods
+        where is_available = 1
+    </select>
+
+    <select id="findAllShopCategoryId" resultType="int" >
+        select category_id
+        from shop_goods
+        where is_available = 1 and shop_id = #{shopId}
+        group by category_id
+    </select>
+
+    <select id="findCountByCategoryId" resultType="int" >
+        select count(1)
+        from shop_goods
+        where is_available = 1 and category_id = #{categoryId}
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shop_goods
+        where
+        is_available = 1 and goods_id = #{goodsId}
+    </select>
+
+    <select id="findByIds" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shop_goods
+        where is_available = 1
+        and goods_id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findByCategoryId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_goods
+        where is_available = 1 and category_id = #{categoryId} and shop_id = #{shopId}
+        order by create_time desc
+        limit #{start}, #{pageCount}
+    </select>
+
+</mapper>

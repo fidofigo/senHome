@@ -19,4 +19,9 @@ public class HomeParam
      * 页面
      */
     private Integer pageCount;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }
