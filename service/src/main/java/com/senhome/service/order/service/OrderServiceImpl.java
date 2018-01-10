@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderServiceApi
 
     @Override
     @Transactional
-    public ViewResult orderConfirm(List<Integer> cartIds, Integer payPrice, Integer addressId, Integer accountId)
+    public ViewResult orderConfirm(List<Integer> cartIds, Integer payPrice, Integer addressId, Integer accountId, Integer shopId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -130,6 +130,7 @@ public class OrderServiceImpl implements OrderServiceApi
         orderConfirm.setNumber(orderConfirmNumber.toString());
         orderConfirm.setReceiveAddressId(addressId);
         orderConfirm.setTotalPrice(payPrice);
+        orderConfirm.setShopId(shopId);
 
         Integer orderConfirmId =  orderBusiness.insertOrderConfirm(orderConfirm);
 
@@ -200,6 +201,9 @@ public class OrderServiceImpl implements OrderServiceApi
         order.setAccountId(accountId);
         order.setReceiveAddressId(orderConfirm.getReceiveAddressId());
         order.setTotalPrice(payPrice);
+        order.setShopId(orderConfirm.getShopId());
+        order.setType(Byte.valueOf("1"));
+        order.setPayChannel(Byte.valueOf("1"));
 
         Integer orderId = orderBusiness.insertOrder(order);
 
@@ -270,6 +274,10 @@ public class OrderServiceImpl implements OrderServiceApi
             viewResult.setMessage("account not exist");
             return viewResult;
         }
+
+        Order order = orderBusiness.findOrderById(orderId);
+        order.setType(Byte.valueOf("2"));
+        orderBusiness.updateOrder(order);
 
         OrderPayDTO orderPay = new OrderPayDTO();
         orderPay.setPayStr("success");

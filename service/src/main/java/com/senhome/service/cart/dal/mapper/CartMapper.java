@@ -10,11 +10,11 @@ import java.util.List;
 public interface CartMapper
 {
     /**
-     * 活动用户购物车列表
+     * 获取用户购物车列表
      * @param accountId
      * @return
      */
-    List<Cart> findCartByAccountId(Integer accountId);
+    List<Cart> findCartByAccountId(@Param("accountId") Integer accountId, @Param("shopId") Integer shopId);
 
     /**
      * 获取用户购物车商品
@@ -29,7 +29,7 @@ public interface CartMapper
      * @param accountId
      * @return
      */
-    int findCountByAccountId(Integer accountId);
+    int findCountByAccountId(@Param("accountId") Integer accountId, @Param("shopId") Integer shopId);
 
     /**
      * 获取购物车商品
@@ -44,7 +44,7 @@ public interface CartMapper
      * @param goodsId
      * @return
      */
-    Cart findByAccountIdAndGoodsId(@Param("accountId") Integer accountId, @Param("goodsId") Integer goodsId);
+    Cart findByAccountIdAndGoodsId(@Param("accountId") Integer accountId, @Param("goodsId") Integer goodsId, @Param("shopId") Integer shopId);
 
     /**
      * 新增购物车商品

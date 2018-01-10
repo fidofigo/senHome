@@ -37,4 +37,9 @@ public class Order extends BaseDO
      * 付款时间
      */
     private Date payTime;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }

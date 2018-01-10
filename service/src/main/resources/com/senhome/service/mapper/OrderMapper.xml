@@ -8,6 +8,7 @@
         <result column="total_price" property="totalPrice"/>
         <result column="type" property="type"/>
         <result column="pay_channel" property="payChannel"/>
+        <result column="shop_id" property="shopId"/>
         <result column="receive_address_id" property="receiveAddressId"/>
         <result column="pay_time" property="payTime"/>
         <result column="is_available" property="isAvailable"/>
@@ -16,7 +17,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, account_id, total_price, `type`, pay_channel, receive_address_id, pay_time, is_available, create_time, update_time
+        id, account_id, shop_id, total_price, `type`, pay_channel, receive_address_id, pay_time, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -42,7 +43,7 @@
     </select>
 
     <insert id="insertOrder" parameterType="com.senhome.service.order.dal.dataobject.Order" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `order`(account_id, total_price, `type`, pay_channel, receive_address_id, create_time) VALUES(#{accountId}, #{totalPrice}, #{type}, #{payChannel}, #{receiveAddressId}, now())
+        INSERT INTO `order`(account_id, total_price, `type`, pay_channel, receive_address_id, shop_id, create_time) VALUES(#{accountId}, #{totalPrice}, #{type}, #{payChannel}, #{receiveAddressId}, #{shopId}, now())
     </insert>
 
     <update id="updateOrder">

@@ -14,14 +14,14 @@ public class CartBusiness
     @Autowired
     private CartMapper cartMapper;
 
-    public List<Cart> findCartByAccountId(Integer accountId)
+    public List<Cart> findCartByAccountId(Integer accountId, Integer shopId)
     {
         if(accountId == null)
         {
             return null;
         }
 
-        return cartMapper.findCartByAccountId(accountId);
+        return cartMapper.findCartByAccountId(accountId, shopId);
     }
 
     public List<Cart> findCartByCartListAndAccountId(List<Integer> ids, Integer accountId)
@@ -44,24 +44,24 @@ public class CartBusiness
         return cartMapper.findById(id);
     }
 
-    public Cart findByAccountIdAndGoodsId(Integer accountId, Integer goodsId)
+    public Cart findByAccountIdAndGoodsId(Integer accountId, Integer goodsId, Integer shopId)
     {
         if(accountId == null || goodsId == null)
         {
             return null;
         }
 
-        return cartMapper.findByAccountIdAndGoodsId(accountId, goodsId);
+        return cartMapper.findByAccountIdAndGoodsId(accountId, goodsId, shopId);
     }
 
-    public Integer findCountByAccountId(Integer accountId)
+    public Integer findCountByAccountId(Integer accountId, Integer shopId)
     {
         if(accountId == null || accountId == 0)
         {
             return 0;
         }
 
-        return cartMapper.findCountByAccountId(accountId);
+        return cartMapper.findCountByAccountId(accountId, shopId);
     }
 
     public Integer insertCart(Cart cart)

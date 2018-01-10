@@ -31,4 +31,9 @@ public class CartParam
      * 购物车id列表
      */
     private List<Integer> cartIds;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }

@@ -25,4 +25,9 @@ public class OrderConfirm extends BaseDO
      * 地址id
      */
     private Integer receiveAddressId;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }

@@ -19,7 +19,7 @@ public class CartController
     @RequestMapping(value = "/cartCount", method = RequestMethod.POST)
     public Object cartCount(CartParam cartParam)
     {
-        ViewResult result = cartApi.cartCount(cartParam.getAccountId());
+        ViewResult result = cartApi.cartCount(cartParam.getAccountId(), cartParam.getShopId());
 
         return result.toJson();
     }
@@ -27,7 +27,7 @@ public class CartController
     @RequestMapping(value = "/addCartGoods", method = RequestMethod.POST)
     public Object addCartGoods(CartParam cartParam)
     {
-        ViewResult result = cartApi.addCartGoods(cartParam.getAccountId(), cartParam.getGoodsId(), cartParam.getGoodsCount());
+        ViewResult result = cartApi.addCartGoods(cartParam.getAccountId(), cartParam.getGoodsId(), cartParam.getGoodsCount(), cartParam.getShopId());
 
         return result.toJson();
     }
@@ -51,7 +51,7 @@ public class CartController
     @RequestMapping(value = "/cartGoodsList", method = RequestMethod.POST)
     public Object cartGoodsList(CartParam cartParam)
     {
-        ViewResult result = cartApi.cartGoodsList(cartParam.getAccountId());
+        ViewResult result = cartApi.cartGoodsList(cartParam.getAccountId(), cartParam.getShopId());
 
         return result.toJson();
     }

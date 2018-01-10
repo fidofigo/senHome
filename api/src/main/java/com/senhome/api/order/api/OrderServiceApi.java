@@ -8,7 +8,7 @@ import java.util.List;
 @Component("orderServiceApi")
 public interface OrderServiceApi
 {
-    ViewResult orderConfirm(List<Integer> cartIds, Integer payPrice, Integer addressId, Integer accountId);
+    ViewResult orderConfirm(List<Integer> cartIds, Integer payPrice, Integer addressId, Integer accountId, Integer shopId);
 
     ViewResult orderAdd(String confirmId, Integer payPrice, Integer accountId);
 

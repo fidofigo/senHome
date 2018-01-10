@@ -19,7 +19,7 @@
     <select id="findCartByAccountId" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from shopping_cart
-        where is_available = 1 and account_id = #{accountId}
+        where is_available = 1 and account_id = #{accountId} and shop_id = #{shopId}
     </select>
 
     <select id="findCartByCartListAndAccountId" resultMap="BaseResultMap" >
@@ -35,7 +35,7 @@
     <select id="findCountByAccountId" resultType="int" >
         select sum(goods_count)
         from shopping_cart
-        where is_available = 1 and account_id = #{accountId}
+        where is_available = 1 and account_id = #{accountId} and shop_id = #{shopId}
     </select>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -47,7 +47,7 @@
     <select id="findByAccountIdAndGoodsId" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from shopping_cart
-        where is_available = 1 and account_id = #{accountId} and goods_id = #{goodsId}
+        where is_available = 1 and account_id = #{accountId} and goods_id = #{goodsId} and shop_id = #{shopId}
     </select>
 
     <insert id="insertCart" parameterType="com.senhome.service.cart.dal.dataobject.Cart" useGeneratedKeys="true" keyProperty="id">

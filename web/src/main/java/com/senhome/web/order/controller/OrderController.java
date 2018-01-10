@@ -19,7 +19,7 @@ public class OrderController
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public Object orderConfirm(OrderConfirmParam orderConfirmParam)
     {
-        ViewResult result = orderServiceApi.orderConfirm(orderConfirmParam.getCartIds(), orderConfirmParam.getPayPrice(), orderConfirmParam.getAddressId(), orderConfirmParam.getAccountId());
+        ViewResult result = orderServiceApi.orderConfirm(orderConfirmParam.getCartIds(), orderConfirmParam.getPayPrice(), orderConfirmParam.getAddressId(), orderConfirmParam.getAccountId(), orderConfirmParam.getShopId());
 
         return result.toJson();
     }

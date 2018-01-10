@@ -28,11 +28,11 @@ public class CartServiceImpl implements CartApi
     private GoodsBusiness goodsBusiness;
 
     @Override
-    public ViewResult cartCount(Integer accountId)
+    public ViewResult cartCount(Integer accountId, Integer shopId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
-        int cartCount = cartBusiness.findCountByAccountId(accountId);
+        int cartCount = cartBusiness.findCountByAccountId(accountId, shopId);
 
         CartDTO cartDTO = new CartDTO();
         cartDTO.setCartCount(cartCount);
@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartApi
     }
 
     @Override
-    public ViewResult addCartGoods(Integer accountId, Integer goodsId, Integer goodsCount)
+    public ViewResult addCartGoods(Integer accountId, Integer goodsId, Integer goodsCount, Integer shopId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -53,7 +53,7 @@ public class CartServiceImpl implements CartApi
         }
 
         //获取该商品是否加购
-        Cart cart = cartBusiness.findByAccountIdAndGoodsId(accountId, goodsId);
+        Cart cart = cartBusiness.findByAccountIdAndGoodsId(accountId, goodsId, shopId);
         if(cart == null)
         {
             cart = new Cart();
@@ -78,7 +78,7 @@ public class CartServiceImpl implements CartApi
             }
         }
 
-        int cartCount = cartBusiness.findCountByAccountId(accountId);
+        int cartCount = cartBusiness.findCountByAccountId(accountId, shopId);
 
         CartDTO cartDTO = new CartDTO();
         cartDTO.setCartCount(cartCount);
@@ -132,7 +132,7 @@ public class CartServiceImpl implements CartApi
     }
 
     @Override
-    public ViewResult cartGoodsList(Integer accountId)
+    public ViewResult cartGoodsList(Integer accountId, Integer shopId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -143,7 +143,7 @@ public class CartServiceImpl implements CartApi
             return viewResult;
         }
 
-        List<Cart> cartList = cartBusiness.findCartByAccountId(accountId);
+        List<Cart> cartList = cartBusiness.findCartByAccountId(accountId, shopId);
 
         CartGoodsDTO cartGoodsDTO = new CartGoodsDTO();
         List<CartGoodsDetailDTO> cartGoodsDetailDTOList = new ArrayList<>();

@@ -8,13 +8,13 @@ import java.util.List;
 @Component("cartApi")
 public interface CartApi
 {
-    ViewResult cartCount(Integer accountId);
+    ViewResult cartCount(Integer accountId, Integer shopId);
 
-    ViewResult addCartGoods(Integer accountId, Integer goodsId, Integer goodsCount);
+    ViewResult addCartGoods(Integer accountId, Integer goodsId, Integer goodsCount, Integer shopId);
 
     ViewResult editCartGoods( Integer cartId, Integer modifyCount);
 
     ViewResult deleteCartGoods(List<Integer> cartIds);
 
-    ViewResult cartGoodsList(Integer accountId);
+    ViewResult cartGoodsList(Integer accountId, Integer shopId);
 }
