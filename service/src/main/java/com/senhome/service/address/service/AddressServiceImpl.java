@@ -121,6 +121,8 @@ public class AddressServiceImpl implements AddressServiceApi
             return viewResult;
         }
 
+        addressId = address.getId();
+
         AddressIdDTO addressIdDTO = new AddressIdDTO();
         addressIdDTO.setAddressId(addressId);
 
