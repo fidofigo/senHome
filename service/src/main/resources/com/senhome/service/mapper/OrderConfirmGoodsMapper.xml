@@ -20,7 +20,7 @@
     <select id="findByOrderConfirmId" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from order_confirm_goods
-        where is_available = 1 and order_id = #{orderId}
+        where is_available = 1 and order_confirm_id = #{orderConfirmId}
     </select>
 
     <insert id="insertOrderConfirmGoods" parameterType="com.senhome.service.order.dal.dataobject.OrderConfirmGoods" useGeneratedKeys="true" keyProperty="id">

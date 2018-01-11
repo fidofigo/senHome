@@ -16,7 +16,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, category_id, goods_id, goods_base_id, shop_id, stock, lock, is_available, create_time, update_time
+        id, category_id, goods_id, goods_base_id, shop_id, `stock`, `lock`, is_available, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap" >

@@ -10,6 +10,8 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class ShopServiceImpl implements ShopServiceApi
 {
@@ -37,11 +39,12 @@ public class ShopServiceImpl implements ShopServiceApi
             return viewResult;
         }
 
-        Mapper mapper = new DozerBeanMapper();
+        ShopDetailDTO shopDetailDTO = new ShopDetailDTO();
+        shopDetailDTO.setIncome(BigDecimal.valueOf(shop.getIncome()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
+        shopDetailDTO.setWithdraw(BigDecimal.valueOf(shop.getWithdraw()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
+        shopDetailDTO.setIsOpen(shop.getIsOpen());
 
-        ShopDetailDTO view = mapper.map(shop, ShopDetailDTO.class);
-
-        return viewResult.putDefaultModel(view);
+        return viewResult.putDefaultModel(shopDetailDTO);
     }
 
     @Override

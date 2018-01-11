@@ -1,6 +1,5 @@
 package com.senhome.service.account.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
@@ -27,8 +26,6 @@ public class AccountServiceImpl implements AccountServiceApi
 
         Account account = accountBusiness.findByEmail(email);
 
-        logger.info("login viewResult=" + JSONObject.toJSONString(viewResult));
-
         return getLoginViewResult(pwd, viewResult, account);
     }
 
@@ -38,8 +35,6 @@ public class AccountServiceImpl implements AccountServiceApi
         ViewResult viewResult = ViewResult.ofSuccess();
 
         Account account = accountBusiness.findByMobileNumber(mobileNumber);
-
-        logger.info("login viewResult=" + JSONObject.toJSONString(viewResult));
 
         return getLoginViewResult(pwd, viewResult, account);
     }

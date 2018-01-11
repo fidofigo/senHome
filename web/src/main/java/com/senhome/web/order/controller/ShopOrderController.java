@@ -28,7 +28,7 @@ public class ShopOrderController
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     public Object orderDetail(OrderDetailParam orderDetailParam)
     {
-        ViewResult result = orderServiceApi.orderDetail(orderDetailParam.getOrderId());
+        ViewResult result = orderServiceApi.orderDetail(orderDetailParam.getOrderId(), true);
 
         return result.toJson();
     }
@@ -36,7 +36,7 @@ public class ShopOrderController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Object list(OrderListParam orderListParam)
     {
-        ViewResult result = orderServiceApi.orderList(orderListParam.getType(), orderListParam.getPage(), orderListParam.getPageCount(), orderListParam.getAccountId(), true);
+        ViewResult result = orderServiceApi.orderList(orderListParam.getType(), orderListParam.getPage(), orderListParam.getPageCount(), orderListParam.getShopId(), true);
 
         return result.toJson();
     }

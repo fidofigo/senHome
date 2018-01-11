@@ -17,7 +17,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, account_id, mobile_number, detail_address, `name`, income, withdraw, is_open, is_default, is_available, create_time, update_time
+        id, account_id, mobile_number, detail_address, `name`, income, withdraw, is_open, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -27,7 +27,7 @@
     </select>
 
     <update id="updateShop">
-        update receive_address
+        update shop
         <set>
             <if test="income != null">
                 income = #{income},

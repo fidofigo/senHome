@@ -111,7 +111,7 @@ public class HomeServiceImpl implements HomeServiceApi
 
             if(type == 2)
             {
-                homeGoodsDetail.setIncome(goods.getIncome());
+                homeGoodsDetail.setIncome(BigDecimal.valueOf(goods.getIncome()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
                 homeGoodsDetail.setStock(idShopGoodsMap.get(goods.getId()).getStock());
             }
             homeGoods.add(homeGoodsDetail);

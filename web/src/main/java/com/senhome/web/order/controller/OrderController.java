@@ -43,7 +43,7 @@ public class OrderController
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     public Object orderDetail(OrderDetailParam orderDetailParam)
     {
-        ViewResult result = orderServiceApi.orderDetail(orderDetailParam.getOrderId());
+        ViewResult result = orderServiceApi.orderDetail(orderDetailParam.getOrderId(), false);
 
         return result.toJson();
     }

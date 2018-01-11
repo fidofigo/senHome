@@ -33,5 +33,5 @@ public class OrderGoodsDetailDTO
     /**
      * 收益
      */
-    private Integer income;
+    private String income;
 }

@@ -7,6 +7,7 @@
         <result column="account_id" property="accountId"/>
         <result column="number" property="number"/>
         <result column="total_price" property="totalPrice"/>
+        <result column="shop_id" property="shopId"/>
         <result column="receive_address_id" property="receiveAddressId"/>
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
@@ -14,7 +15,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, account_id, `number`, total_price, address_id, is_available, create_time, update_time
+        id, account_id, `number`, total_price, receive_address_id, shop_id, is_available, create_time, update_time
     </sql>
 
     <select id="findByNumber" resultMap="BaseResultMap" >
@@ -24,7 +25,7 @@
     </select>
 
     <insert id="insertOrderConfirm" parameterType="com.senhome.service.order.dal.dataobject.OrderConfirm" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO order_confirm(account_id, `number`, total_price, receive_address_id, create_time) VALUES(#{accountId}, #{number}, #{totalPrice}, #{receiveAddressId}, now())
+        INSERT INTO order_confirm(account_id, `number`, total_price, receive_address_id, shop_id, create_time) VALUES(#{accountId}, #{number}, #{totalPrice}, #{receiveAddressId}, #{shopId}, now())
     </insert>
 
 </mapper>

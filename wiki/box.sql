@@ -104,7 +104,7 @@ CREATE TABLE `order` (
   `account_id` int(11) unsigned NOT NULL COMMENT '账号id',
   `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id',
   `total_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总价，分为单位',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态；1：待付款，2：待配送，3：配送中，4：交易成功，5：已取消',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态；1:待付款 2:待接单 3:待配送 4:配送中 5:交易成功 6:已取消',
   `pay_channel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '支付渠道；1：信用卡',
   `order_receive_address_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单收货地址id',
   `pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '付款时间',

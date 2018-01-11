@@ -4,6 +4,7 @@ import com.senhome.api.order.api.OrderServiceApi;
 import com.senhome.api.order.model.*;
 import com.senhome.service.address.business.AddressBusiness;
 import com.senhome.service.address.dal.dataobject.Address;
+import com.senhome.service.address.dal.dataobject.OrderAddress;
 import com.senhome.service.cart.business.CartBusiness;
 import com.senhome.service.cart.dal.dataobject.Cart;
 import com.senhome.service.goods.business.GoodsBusiness;
@@ -15,12 +16,14 @@ import com.senhome.service.order.dal.dataobject.OrderConfirmGoods;
 import com.senhome.service.order.dal.dataobject.OrderGoods;
 import com.senhome.shell.common.lang.CommonUtil;
 import com.senhome.shell.common.result.ViewResult;
+import com.senhome.shell.common.time.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -103,7 +106,7 @@ public class OrderServiceImpl implements OrderServiceApi
             orderGoodsDetail.setName(goods.getName());
             orderGoodsDetail.setPrice(BigDecimal.valueOf(goods.getSalesPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
 
-            totalPrice = BigDecimal.valueOf(goods.getSalesPrice()).add(totalPrice);
+            totalPrice = (BigDecimal.valueOf(goods.getSalesPrice()).multiply(BigDecimal.valueOf(cart.getGoodsCount()))).add(totalPrice);
 
             orderGoodsDetailDTOList.add(orderGoodsDetail);
         }
@@ -124,15 +127,30 @@ public class OrderServiceImpl implements OrderServiceApi
             return viewResult;
         }
 
+        //创建订单收货地址
+        OrderAddress orderAddress = new OrderAddress();
+        orderAddress.setDetailAddress(address.getDetailAddress());
+        orderAddress.setMobileNumber(address.getMobileNumber());
+        orderAddress.setName(address.getName());
+        Integer orderAddressId = addressBusiness.insertOrderAddress(orderAddress);
+
+        if(orderAddressId <= 0)
+        {
+            viewResult.setSuccess(false);
+            viewResult.setMessage("create address order fail");
+            return viewResult;
+        }
+        orderAddressId = orderAddress.getId();
+
         //创建订单确认数据
         OrderConfirm orderConfirm = new OrderConfirm();
         orderConfirm.setAccountId(accountId);
         orderConfirm.setNumber(orderConfirmNumber.toString());
-        orderConfirm.setReceiveAddressId(addressId);
+        orderConfirm.setReceiveAddressId(orderAddressId);
         orderConfirm.setTotalPrice(payPrice);
         orderConfirm.setShopId(shopId);
 
-        Integer orderConfirmId =  orderBusiness.insertOrderConfirm(orderConfirm);
+        Integer orderConfirmId = orderBusiness.insertOrderConfirm(orderConfirm);
 
         if(orderConfirmId <= 0)
         {
@@ -140,6 +158,8 @@ public class OrderServiceImpl implements OrderServiceApi
             viewResult.setMessage("create confirm order fail");
             return viewResult;
         }
+
+        orderConfirmId = orderConfirm.getId();
 
         for(Cart cart : cartList)
         {
@@ -214,6 +234,8 @@ public class OrderServiceImpl implements OrderServiceApi
             return viewResult;
         }
 
+        orderId = order.getId();
+
         //获取、创建订单商品
         List<Integer> goodsIds = orderConfirmGoodsList.stream().map(OrderConfirmGoods::getGoodsId).collect(Collectors.toList());
         List<Goods> goodsList = goodsBusiness.findGoodsListByIds(goodsIds);
@@ -277,6 +299,8 @@ public class OrderServiceImpl implements OrderServiceApi
 
         Order order = orderBusiness.findOrderById(orderId);
         order.setType(Byte.valueOf("2"));
+        order.setPayTime(DateUtil.now());
+        order.setPayChannel(Byte.valueOf("1"));
         orderBusiness.updateOrder(order);
 
         OrderPayDTO orderPay = new OrderPayDTO();
@@ -286,7 +310,7 @@ public class OrderServiceImpl implements OrderServiceApi
     }
 
     @Override
-    public ViewResult orderDetail(Integer orderId)
+    public ViewResult orderDetail(Integer orderId, Boolean isShop)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -314,6 +338,7 @@ public class OrderServiceImpl implements OrderServiceApi
         Map<Integer, Goods> goodsMap = goodsList.parallelStream().collect(Collectors.toMap(Goods::getId, e -> e));
 
         List<OrderGoodsDetailDTO> orderGoodsDetailDTOList = new ArrayList<>();
+        Integer income = 0;
         for(OrderGoods orderGoods : orderGoodsList)
         {
             Goods goods = goodsMap.get(orderGoods.getGoodsId());
@@ -329,12 +354,20 @@ public class OrderServiceImpl implements OrderServiceApi
             orderGoodsDetail.setImage(goods.getImage1());
             orderGoodsDetail.setName(goods.getName());
             orderGoodsDetail.setPrice(BigDecimal.valueOf(orderGoods.getSalesPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
+            if(isShop)
+            {
+                Integer orderGoodsIncome = Integer.valueOf(BigDecimal.valueOf(goods.getIncome())
+                    .multiply(BigDecimal.valueOf(orderGoods.getCount()))
+                    .toString());
+                orderGoodsDetail.setIncome(BigDecimal.valueOf(orderGoodsIncome).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
+                income += orderGoodsIncome;
+            }
 
             orderGoodsDetailDTOList.add(orderGoodsDetail);
         }
 
         //获取用户地址
-        Address address = addressBusiness.findAddressById(order.getReceiveAddressId());
+        OrderAddress address = addressBusiness.findOrderAddressById(order.getReceiveAddressId());
         if(address == null)
         {
             viewResult.setSuccess(false);
@@ -346,8 +379,12 @@ public class OrderServiceImpl implements OrderServiceApi
         orderDetail.setAddressDetail(address.getDetailAddress());
         orderDetail.setIsPay(order.getPayTime() == null ? 0 : 1);
         orderDetail.setOrderGoods(orderGoodsDetailDTOList);
-        orderDetail.setPayPrice(order.getTotalPrice().toString());
+        orderDetail.setPayPrice(BigDecimal.valueOf(order.getTotalPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
         orderDetail.setType(order.getType());
+        if(isShop)
+        {
+            orderDetail.setIncome(BigDecimal.valueOf(income).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
+        }
 
         return viewResult.putDefaultModel(orderDetail);
     }
@@ -430,7 +467,7 @@ public class OrderServiceImpl implements OrderServiceApi
         for(Order order : orderList)
         {
             OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
-            orderDetailDTO.setPayPrice(order.getTotalPrice().toString());
+            orderDetailDTO.setPayPrice(BigDecimal.valueOf(order.getTotalPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
             orderDetailDTO.setIsPay(order.getPayTime() == null ? 0 : 1);
 
             List<OrderGoodsDetailDTO> goodsDetailDTOList = new ArrayList<>();
@@ -458,7 +495,14 @@ public class OrderServiceImpl implements OrderServiceApi
                     orderGoodsDetail.setImage(goodsDetail.getImage1());
                     orderGoodsDetail.setName(goodsDetail.getName());
                     orderGoodsDetail.setPrice(goods.getSalesPrice().toString());
-                    income += goodsDetail.getIncome();
+                    if(isShop)
+                    {
+                        Integer orderGoodsIncome = Integer.valueOf(BigDecimal.valueOf(goodsDetail.getIncome())
+                            .multiply(BigDecimal.valueOf(goods.getCount()))
+                            .toString());
+                        orderGoodsDetail.setIncome(BigDecimal.valueOf(orderGoodsIncome).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
+                        income += orderGoodsIncome;
+                    }
 
                     goodsDetailDTOList.add(orderGoodsDetail);
                 }
@@ -468,7 +512,7 @@ public class OrderServiceImpl implements OrderServiceApi
 
             if(isShop)
             {
-                orderDetailDTO.setIncome(income);
+                orderDetailDTO.setIncome(BigDecimal.valueOf(income).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
             }
 
             orderDetailDTOList.add(orderDetailDTO);

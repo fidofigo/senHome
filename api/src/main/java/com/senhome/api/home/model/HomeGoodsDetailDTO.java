@@ -38,5 +38,5 @@ public class HomeGoodsDetailDTO
     /**
      * 收益
      */
-    private Integer income;
+    private String income;
 }

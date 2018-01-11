@@ -14,7 +14,7 @@ public interface OrderServiceApi
 
     ViewResult orderPay(Integer orderId, Byte channel, Integer payPrice, Integer accountId);
 
-    ViewResult orderDetail(Integer orderId);
+    ViewResult orderDetail(Integer orderId, Boolean isShop);
 
     ViewResult updateOrder(Integer orderId, Integer type);
 

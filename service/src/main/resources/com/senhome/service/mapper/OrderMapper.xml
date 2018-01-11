@@ -63,7 +63,7 @@
     </insert>
 
     <update id="updateOrder">
-        update shopping_cart
+        update `order`
         <set>
             <if test="accountId != null">
                 account_id = #{accountId},

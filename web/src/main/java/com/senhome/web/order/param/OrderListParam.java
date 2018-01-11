@@ -24,4 +24,9 @@ public class OrderListParam
      * 用户id
      */
     private Integer accountId;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }

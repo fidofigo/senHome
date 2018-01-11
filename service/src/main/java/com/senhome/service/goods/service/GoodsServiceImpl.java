@@ -65,7 +65,7 @@ public class GoodsServiceImpl implements GoodsServiceApi
 
         if(type == 2)
         {
-            goodsBaseDTO.setIncome(goods.getIncome());
+            goodsBaseDTO.setIncome(BigDecimal.valueOf(goods.getIncome()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
             ShopGoods shopGoods = shopGoodsBusiness.findShopGoodsById(goodsId);
             goodsBaseDTO.setStock(shopGoods == null ? 0 : shopGoods.getStock());
         }
