@@ -7,13 +7,14 @@
         <result column="account_id" property="accountId"/>
         <result column="goods_id" property="goodsId"/>
         <result column="goods_count" property="goodsCount"/>
+        <result column="shop_id" property="shopId"/>
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, account_id, goods_id, goods_count, is_available, create_time, update_time
+        id, account_id, goods_id, goods_count, shop_id, is_available, create_time, update_time
     </sql>
 
     <select id="findCartByAccountId" resultMap="BaseResultMap" >
@@ -51,7 +52,7 @@
     </select>
 
     <insert id="insertCart" parameterType="com.senhome.service.cart.dal.dataobject.Cart" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO shopping_cart(account_id, goods_id, goods_count, create_time) VALUES(#{accountId}, #{goodsId}, #{goodsCount}, now())
+        INSERT INTO shopping_cart(account_id, goods_id, goods_count, shop_id, create_time) VALUES(#{accountId}, #{goodsId}, #{goodsCount}, #{shopId}, now())
     </insert>
 
     <update id="updateCart">

@@ -60,6 +60,7 @@ public class CartServiceImpl implements CartApi
             cart.setAccountId(accountId);
             cart.setGoodsId(goodsId);
             cart.setGoodsCount(goodsCount);
+            cart.setShopId(shopId);
             if(cartBusiness.insertCart(cart) <= 0)
             {
                 viewResult.setSuccess(false);

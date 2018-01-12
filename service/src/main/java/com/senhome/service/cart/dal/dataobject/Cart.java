@@ -20,4 +20,9 @@ public class Cart extends BaseDO
      * 商品数量
      */
     private Integer goodsCount;
+
+    /**
+     * 店铺id
+     */
+    private Integer shopId;
 }
