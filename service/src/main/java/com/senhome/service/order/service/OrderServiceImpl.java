@@ -476,6 +476,7 @@ public class OrderServiceImpl implements OrderServiceApi
             orderDetailDTO.setPayPrice(BigDecimal.valueOf(order.getTotalPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
             orderDetailDTO.setIsPay(order.getPayTime() == null ? 0 : 1);
             orderDetailDTO.setOrderId(order.getId());
+            orderDetailDTO.setType(order.getType());
 
             OrderAddress orderAddress = orderAddressMap.get(order.getReceiveAddressId());
             orderDetailDTO.setAddressDetail(orderAddress.getDetailAddress());
