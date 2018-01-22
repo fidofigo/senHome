@@ -26,4 +26,13 @@
         INSERT INTO order_receive_address(mobile_number, detail_address, `name`, create_time) VALUES(#{mobileNumber}, #{detailAddress}, #{name}, now())
     </insert>
 
+    <select id="findOrderAddressByIds" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from order_receive_address
+        where id in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>

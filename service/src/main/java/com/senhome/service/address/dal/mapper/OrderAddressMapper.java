@@ -3,6 +3,8 @@ package com.senhome.service.address.dal.mapper;
 import com.senhome.service.address.dal.dataobject.OrderAddress;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrderAddressMapper
 {
@@ -19,4 +21,11 @@ public interface OrderAddressMapper
      * @return
      */
     int insertOrderAddress(OrderAddress orderAddress);
+
+    /**
+     * 根据收货地址id列表获取订单地址列表
+     * @param ids
+     * @return
+     */
+    List<OrderAddress> findOrderAddressByIds(List<Integer> ids);
 }

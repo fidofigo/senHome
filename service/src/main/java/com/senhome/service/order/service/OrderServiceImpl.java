@@ -465,11 +465,20 @@ public class OrderServiceImpl implements OrderServiceApi
 
         List<OrderDetailDTO> orderDetailDTOList = new ArrayList<>();
 
+        //获取收货地址列表
+        List<Integer> addressIds = orderList.stream().map(Order::getReceiveAddressId).collect(Collectors.toList());
+        List<OrderAddress> orderAddressList = addressBusiness.findOrderAddressByIds(addressIds);
+        Map<Integer, OrderAddress> orderAddressMap = orderAddressList.parallelStream().collect(Collectors.toMap(OrderAddress::getId, e -> e));
+
         for(Order order : orderList)
         {
             OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
             orderDetailDTO.setPayPrice(BigDecimal.valueOf(order.getTotalPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
             orderDetailDTO.setIsPay(order.getPayTime() == null ? 0 : 1);
+            orderDetailDTO.setOrderId(order.getId());
+
+            OrderAddress orderAddress = orderAddressMap.get(order.getReceiveAddressId());
+            orderDetailDTO.setAddressDetail(orderAddress.getDetailAddress());
 
             List<OrderGoodsDetailDTO> goodsDetailDTOList = new ArrayList<>();
 
@@ -495,7 +504,7 @@ public class OrderServiceImpl implements OrderServiceApi
                     orderGoodsDetail.setGoodsId(goods.getGoodsId());
                     orderGoodsDetail.setImage(goodsDetail.getImage1());
                     orderGoodsDetail.setName(goodsDetail.getName());
-                    orderGoodsDetail.setPrice(goods.getSalesPrice().toString());
+                    orderGoodsDetail.setPrice(BigDecimal.valueOf(goods.getSalesPrice()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
                     if(isShop)
                     {
                         Integer orderGoodsIncome = Integer.valueOf(BigDecimal.valueOf(goodsDetail.getIncome())

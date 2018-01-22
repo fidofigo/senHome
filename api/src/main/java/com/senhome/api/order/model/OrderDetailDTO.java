@@ -36,4 +36,9 @@ public class OrderDetailDTO
      * 收益
      */
     private String income;
+
+    /**
+     * 订单id
+     */
+    private Integer orderId;
 }
