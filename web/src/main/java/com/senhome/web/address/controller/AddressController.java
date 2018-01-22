@@ -44,7 +44,7 @@ public class AddressController
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     public Object change(AddressParam addressParam)
     {
-        ViewResult result = addressServiceApi.changeAddress(addressParam.getAccountId(), addressParam.getDetail(), addressParam.getPhone(), addressParam.getName(), addressParam.getIsDefault(), addressParam.getAddressId());
+        ViewResult result = addressServiceApi.changeAddress(addressParam.getAccountId(), addressParam.getDetail(), addressParam.getPhone(), addressParam.getName(), addressParam.getIsDefault(), addressParam.getCode(), addressParam.getAddressId());
 
         return result.toJson();
     }

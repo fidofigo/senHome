@@ -10,7 +10,7 @@ public interface AddressServiceApi
 
     ViewResult deleteAddress(Integer addressId);
 
-    ViewResult changeAddress(Integer accountId, String detailAddress, String phone, String name, Integer isDefault, Integer addressId);
+    ViewResult changeAddress(Integer accountId, String detailAddress, String phone, String name, Integer isDefault, Integer code, Integer addressId);
 
     ViewResult addressList(Integer accountId);
 }

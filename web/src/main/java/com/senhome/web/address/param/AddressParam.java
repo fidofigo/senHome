@@ -26,6 +26,11 @@ public class AddressParam
     private String name;
 
     /**
+     * 地址编码
+     */
+    private Integer code;
+
+    /**
      * 是否默认；0：否，1：是
      */
     private Integer isDefault;

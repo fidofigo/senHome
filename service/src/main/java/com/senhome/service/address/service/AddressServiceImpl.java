@@ -72,7 +72,7 @@ public class AddressServiceImpl implements AddressServiceApi
     }
 
     @Override
-    public ViewResult changeAddress(Integer accountId, String detailAddress, String phone, String name, Integer isDefault, Integer addressId)
+    public ViewResult changeAddress(Integer accountId, String detailAddress, String phone, String name, Integer isDefault, Integer code, Integer addressId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
 
@@ -102,6 +102,7 @@ public class AddressServiceImpl implements AddressServiceApi
         address.setDetailAddress(detailAddress);
         address.setMobileNumber(phone);
         address.setIsDefault(Byte.valueOf(isDefault.toString()));
+        address.setCode(code);
         address.setName(name);
 
         if(addressId > 0)

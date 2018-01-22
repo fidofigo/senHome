@@ -17,6 +17,11 @@ public class OrderAddress extends BaseDO
     private String detailAddress;
 
     /**
+     * 地址编码
+     */
+    private Integer code;
+
+    /**
      * 姓名
      */
     private String name;

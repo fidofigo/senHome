@@ -132,6 +132,7 @@ public class OrderServiceImpl implements OrderServiceApi
         orderAddress.setDetailAddress(address.getDetailAddress());
         orderAddress.setMobileNumber(address.getMobileNumber());
         orderAddress.setName(address.getName());
+        orderAddress.setCode(address.getCode());
         Integer orderAddressId = addressBusiness.insertOrderAddress(orderAddress);
 
         if(orderAddressId <= 0)

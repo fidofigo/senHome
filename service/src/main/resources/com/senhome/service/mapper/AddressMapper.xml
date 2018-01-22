@@ -8,6 +8,7 @@
         <result column="mobile_number" property="mobileNumber"/>
         <result column="detail_address" property="detailAddress"/>
         <result column="name" property="name"/>
+        <result column="code" property="code"/>
         <result column="is_default" property="isDefault"/>
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
@@ -15,7 +16,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, account_id, mobile_number, detail_address, `name`, is_default, is_available, create_time, update_time
+        id, account_id, mobile_number, detail_address, `name`, code, is_default, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -37,7 +38,7 @@
     </select>
 
     <insert id="insertAddress" parameterType="com.senhome.service.order.dal.dataobject.Order" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO receive_address(account_id, mobile_number, detail_address, `name`, is_default, create_time) VALUES(#{accountId}, #{mobileNumber}, #{detailAddress}, #{name}, #{isDefault}, now())
+        INSERT INTO receive_address(account_id, mobile_number, detail_address, `name`, code, is_default, create_time) VALUES(#{accountId}, #{mobileNumber}, #{detailAddress}, #{name}, #{code}, #{isDefault}, now())
     </insert>
 
     <update id="updateAddress">
@@ -54,6 +55,9 @@
             </if>
             <if test="detailAddress != null">
                 detail_address = #{detailAddress},
+            </if>
+            <if test="code != null">
+                code = #{code},
             </if>
             <if test="isDefault != null">
                 is_default = #{isDefault},
