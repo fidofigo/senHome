@@ -14,4 +14,9 @@ public class AccountDTO
      * 店铺id
      */
     private Integer shopId;
+
+    /**
+     * 密钥
+     */
+    private String secretKey;
 }

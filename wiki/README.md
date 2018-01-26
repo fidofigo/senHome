@@ -95,8 +95,8 @@
     
 ###  用户管理
    
-#### `用户注册`(url:/account/register)
-* `/account/register`
+#### `用户注册`(url:/accountLogin/register)
+* `/accountLogin/register`
 
     上行：
     

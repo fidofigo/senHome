@@ -2,7 +2,9 @@ package com.senhome.shell.common.lang;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.util.*;
 
 public class CommonUtil {
@@ -193,5 +195,100 @@ public class CommonUtil {
 			return null;
 		}
 		return Long.parseLong(System.currentTimeMillis() + PLATFORM_IDENTITY_CODE);
+	}
+
+	/**
+	 * 生成用户的16位大写md5密钥
+	 *
+	 * @param accountId
+	 * @return
+	 */
+	public static String generateAccountSign(int accountId)
+		throws Exception
+	{
+		String signSuffix = "JiaGengDuoQian15088620153";
+		String plainText = accountId + signSuffix;
+
+		String sign = plainText;
+		for (int i = 0; i < 3; i++)
+		{
+			sign = strToMD5(sign);
+		}
+		return sign;
+	}
+
+	/**
+	 * 把字符串转换成md5
+	 *
+	 * @param str
+	 * @return
+	 */
+	public static String strToMD5(String str)
+		throws UnsupportedEncodingException
+	{
+
+		try
+		{
+			byte[] input;
+			input = str.getBytes("UTF-8");
+			return bytesToHex(bytesToMD5(input));
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			throw e;
+		}
+	}
+
+	/**
+	 * 把字节数组转成16进位制数
+	 *
+	 * @param bytes
+	 * @return
+	 */
+	public static String bytesToHex(byte[] bytes)
+	{
+		StringBuffer md5str = new StringBuffer();
+		// 把数组每一字节换成16进制连成md5字符串
+		int digital;
+		for (int i = 4; i < bytes.length - 4; i++)
+		{
+			digital = bytes[i];
+			if (digital < 0)
+			{
+				digital += 256;
+			}
+			if (digital < 16)
+			{
+				md5str.append("0");
+			}
+			md5str.append(Integer.toHexString(digital));
+		}
+		return md5str.toString().toUpperCase();
+	}
+
+	/**
+	 * 把字节数组转换成md5
+	 *
+	 * @param input
+	 * @return
+	 */
+	public static byte[] bytesToMD5(byte[] input)
+	{
+		// String md5str = null;
+		byte[] buff = null;
+		try
+		{
+			// 创建一个提供信息摘要算法的对象，初始化为md5算法对象
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			// 计算后获得字节数组
+			buff = md.digest(input);
+			// 把数组每一字节换成16进制连成md5字符串
+			// md5str = bytesToHex(buff);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return buff;
 	}
 }

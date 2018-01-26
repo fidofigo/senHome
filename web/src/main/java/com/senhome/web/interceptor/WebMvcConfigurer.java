@@ -4,6 +4,7 @@ import com.senhome.web.interceptor.mvc.CustomRequestMappingHandlerAdapter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrations;
@@ -21,33 +22,11 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * @since 1.0
  */
 @Configuration
-//@EnableConfigurationProperties({SignProperties.class})
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public class WebMvcConfigurer extends WebMvcAutoConfiguration.EnableWebMvcConfiguration
 {
-//    @Autowired
-//    private AccountInterceptor accountInterceptor;
-//
-////    @Autowired
-////    private SignValidateInterceptor signValidateInterceptor;
-////
-////    @Autowired
-////    private SignProperties signProperties;
-////
-////    @Autowired
-////    private WebTokenInterceptor webTokenInterceptor;
-//
-//    @Autowired
-//    private SystemTrackLogInterceptor systemTrackLogInterceptor;
-//
-//    @Autowired
-//    private ProtocolInterceptor protocolInterceptor;
-//
-//    @Autowired
-//    private WebLoginAuthInterceptor webLoginAuthInterceptor;
-
-//    @Autowired
-//    CommonInterceptor commonInterceptor;
+    @Autowired
+    private AccountInterceptor accountInterceptor;
 
     public WebMvcConfigurer(ObjectProvider<WebMvcProperties> mvcPropertiesProvider, ObjectProvider<WebMvcRegistrations> mvcRegistrationsProvider, ListableBeanFactory beanFactory)
     {
@@ -58,30 +37,9 @@ public class WebMvcConfigurer extends WebMvcAutoConfiguration.EnableWebMvcConfig
     public void addInterceptors(InterceptorRegistry registry)
     {
         super.addInterceptors(registry);
-//        String signExcludePath = signProperties.getExcludePath();
-//        if(StringUtils.hasText(signExcludePath))
-//            registry.addInterceptor(signValidateInterceptor).addPathPatterns("/**").excludePathPatterns(signExcludePath.split(","));
-//        else
-//            registry.addInterceptor(signValidateInterceptor).addPathPatterns("/**");
 
-//        registry.addInterceptor(accountInterceptor).addPathPatterns("/**").excludePathPatterns("/webNative/wx/**","/webNative/mmd/callback");
-//        registry.addInterceptor(systemTrackLogInterceptor).addPathPatterns("/**");
-////        registry.addInterceptor(webTokenInterceptor).addPathPatterns("/webNative/**");
-////        registry.addInterceptor(webLoginAuthInterceptor).addPathPatterns("/webNative/**");
-//        registry.addInterceptor(protocolInterceptor).addPathPatterns("/**");
-
-//        registry.addInterceptor(commonInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(accountInterceptor).addPathPatterns("/**");
     }
-
-//    @Bean
-//    @Override
-//    public RequestMappingHandlerMapping requestMappingHandlerMapping()
-//    {
-//        RequestMappingHandlerMapping handlerMapping = new CommonRequestMappingHandlerMapping();
-//        handlerMapping.setOrder(0);
-//        handlerMapping.setInterceptors(getInterceptors());
-//        return handlerMapping;
-//    }
 
     @Bean
     @Override
@@ -92,22 +50,4 @@ public class WebMvcConfigurer extends WebMvcAutoConfiguration.EnableWebMvcConfig
         BeanUtils.copyProperties(adapter, customAdapter, "applicationContext", "returnValueHandlers");
         return customAdapter;
     }
-
-    //    @Bean(name ="freemarkerConfig")
-//    public FreeMarkerConfigurer freemarkerConfig() {
-//        FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-//        configurer.setTemplateLoaderPath("/WEB-INF/views/");
-//        return configurer;
-//    }
-//    @Override
-//    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-//        super.configureContentNegotiation(configurer);
-//        configurer.ignoreUnknownPathExtensions(false).defaultContentType(MediaType.TEXT_HTML);
-//    }
-//    @Override
-//    public void configureViewResolvers(ViewResolverRegistry registry) {
-//        super.configureViewResolvers(registry);
-//        registry.freeMarker();
-//    }
-
 }

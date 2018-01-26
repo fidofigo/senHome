@@ -45,4 +45,9 @@ public class Account extends BaseDO
      * 店铺id, type=2时有效
      */
     private Integer shopId;
+
+    /**
+     * 密钥
+     */
+    private String secretKey;
 }

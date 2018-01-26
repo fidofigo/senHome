@@ -11,4 +11,6 @@ public interface AccountServiceApi
     ViewResult register(String email, String pwd);
 
     ViewResult shopLogin(String mobileNumber, String pwd);
+
+    ViewResult findAccount(Integer accountId);
 }

@@ -12,13 +12,14 @@
         <result column="shop_id" property="shopId"/>
         <result column="code" property="code" />
         <result column="type" property="type" />
+        <result column="secret_key" property="secretKey" />
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, email, pwd, `type`, head, `name`, mobile_number, shop_id, is_available, create_time, update_time
+        id, email, pwd, `type`, head, `name`, mobile_number, shop_id, secret_key, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -54,6 +55,9 @@
             </if>
             <if test="code != null">
                 code = #{code},
+            </if>
+            <if test="secretKey != null">
+                secret_key = #{secretKey},
             </if>
         </set>
         where id = #{id}

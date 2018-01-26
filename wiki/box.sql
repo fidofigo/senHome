@@ -18,6 +18,7 @@ CREATE TABLE account (
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1：用户，2：商家',
   `head` varchar(100) NOT NULL DEFAULT '' COMMENT '头像地址',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名称',
+  `secret_key` varchar(30) default 'boxcityboxcity' not null comment '请求秘钥',
   `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
   `shop_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '店铺id, type=2时有效',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',

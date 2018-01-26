@@ -4,6 +4,7 @@ import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
 import com.senhome.service.account.dal.dataobject.Account;
+import com.senhome.shell.common.lang.CommonUtil;
 import com.senhome.shell.common.lang.InviteCodeUtil;
 import com.senhome.shell.common.result.ViewResult;
 import org.slf4j.Logger;
@@ -39,6 +40,16 @@ public class AccountServiceImpl implements AccountServiceApi
         return getLoginViewResult(pwd, viewResult, account);
     }
 
+    @Override
+    public ViewResult findAccount(Integer accountId)
+    {
+        ViewResult viewResult = ViewResult.ofSuccess();
+
+        Account account = accountBusiness.findById(accountId);
+
+        return viewResult.putDefaultModel(account);
+    }
+
     private ViewResult getLoginViewResult(String pwd, ViewResult viewResult, Account account)
     {
         if(account == null)
@@ -54,6 +65,7 @@ public class AccountServiceImpl implements AccountServiceApi
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
                 accountDTO.setShopId(account.getShopId());
+                accountDTO.setSecretKey(account.getSecretKey());
 
                 return viewResult.putDefaultModel(accountDTO);
             }
@@ -91,10 +103,21 @@ public class AccountServiceImpl implements AccountServiceApi
                 Account accountCode = new Account();
                 accountCode.setCode(InviteCodeUtil.getInviteCode(account.getId()));
                 accountCode.setId(account.getId());
+                try
+                {
+                    accountCode.setSecretKey(CommonUtil.generateAccountSign(account.getId()));
+                }
+                catch (Exception e)
+                {
+                    viewResult.setSuccess(false);
+                    viewResult.setMessage("login fail");
+                    return viewResult;
+                }
                 accountBusiness.updateAccount(accountCode);
 
                 AccountDTO accountDTO = new AccountDTO();
-                accountDTO.setAccountId(account.getId());
+                accountDTO.setAccountId(accountCode.getId());
+                accountDTO.setSecretKey(accountCode.getSecretKey());
 
                 return viewResult.putDefaultModel(accountDTO);
             }

@@ -30,7 +30,7 @@
         <!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径  
 	<typeAliases>
 	     
-	    <typeAlias  alias="account" type="com.ygg.groupPurchase.beans.MwebGroupAccountupAccount" />
+	    <typeAlias  alias="accountLogin" type="com.ygg.groupPurchase.beans.MwebGroupAccountupAccount" />
 	    <typeAlias  alias="product" type="com.ygg.groupPurchase.beans.Product" /> 
 	    <typeAlias  alias="accountAddress" type="com.ygg.groupPurchase.beans.AccountAddress" /> 
 	     
