@@ -79,10 +79,13 @@ public class HomeServiceImpl implements HomeServiceApi
             }
         }
 
+        ShopGoods shopGoods = shopGoodsBusiness.findShopGoodsById(shopId);
+
         HomeDTO homeDTO = new HomeDTO();
         homeDTO.setBanner(bannerDTO);
         homeDTO.setCategory(categoryDTOList);
         homeDTO.setShopId(shopId);
+        homeDTO.setShopName(shopGoods.getName());
 
         return ViewResult.ofSuccess().putDefaultModel(homeDTO);
     }

@@ -38,7 +38,7 @@ public class WebMvcConfigurer extends WebMvcAutoConfiguration.EnableWebMvcConfig
     {
         super.addInterceptors(registry);
 
-        registry.addInterceptor(accountInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(accountInterceptor).addPathPatterns("/appNative/**");
     }
 
     @Bean

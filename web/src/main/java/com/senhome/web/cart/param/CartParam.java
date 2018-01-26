@@ -1,17 +1,13 @@
 package com.senhome.web.cart.param;
 
+import com.senhome.shell.common.dal.domain.ProtocolPojo;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class CartParam
+public class CartParam extends ProtocolPojo
 {
-    /**
-     * 用户id
-     */
-    private Integer accountId;
-
     /**
      * 商品id
      */

@@ -169,7 +169,7 @@ CREATE TABLE `order_receive_address` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
   `detail_address` varchar(50) NOT NULL DEFAULT '' COMMENT '详细地址',
-  `code` int(11) unsigned NOT NULL DEFAULT '' COMMENT '地址编码',
+  `code` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '地址编码',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
   `is_available` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否可用；0：否，1：是',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',

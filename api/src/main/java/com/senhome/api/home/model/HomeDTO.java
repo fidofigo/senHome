@@ -21,4 +21,9 @@ public class HomeDTO
      * 店铺id
      */
     private Integer shopId;
+
+    /**
+     * 店铺名称
+     */
+    private String shopName;
 }

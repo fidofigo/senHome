@@ -1,15 +1,11 @@
 package com.senhome.web.invite.param;
 
+import com.senhome.shell.common.dal.domain.ProtocolPojo;
 import lombok.Data;
 
 @Data
-public class InviteParams
+public class InviteParams extends ProtocolPojo
 {
-    /**
-     * 用户id
-     */
-    private Integer accountId;
-
     /**
      * 邮箱地址
      */

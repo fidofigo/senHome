@@ -1,15 +1,11 @@
 package com.senhome.web.address.param;
 
+import com.senhome.shell.common.dal.domain.ProtocolPojo;
 import lombok.Data;
 
 @Data
-public class AddressBaseParam
+public class AddressBaseParam extends ProtocolPojo
 {
-    /**
-     * 用户id
-     */
-    private Integer accountId;
-
     /**
      * 地址id
      */

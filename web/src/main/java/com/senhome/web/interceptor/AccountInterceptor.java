@@ -1,5 +1,6 @@
 package com.senhome.web.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.service.account.dal.dataobject.Account;
 import com.senhome.shell.common.enums.OS;
@@ -39,7 +40,23 @@ public class AccountInterceptor extends HandlerInterceptorAdapter
     {
         logger.info("request url: " + request.getRequestURI() + ", params : " + getParam(request));
 
-        buildContextWithApp(request);
+        try
+        {
+            buildContextWithApp(request);
+        }
+        catch (Exception e)
+        {
+            ViewResult viewResult = ViewResult.ofSuccess();
+            viewResult.setSuccess(false);
+            viewResult.setMessage("verify sign fail");
+
+            response.setContentType("application/json;charset=");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(viewResult.toJson());
+
+            return false;
+        }
+
         return true;
     }
 
@@ -87,7 +104,7 @@ public class AccountInterceptor extends HandlerInterceptorAdapter
         String params = request.getParameter("params") == null ? "" : request.getParameter("params");
         String sign = request.getParameter("sign") == null ? "" : request.getParameter("sign");
         String secretKey = null;
-        Account accountDTO = null;
+        Account account = null;
 
         if(!StringUtils.isNumeric(accountIdParam)){
             throw new IncorrectAccountSignException();
@@ -103,12 +120,12 @@ public class AccountInterceptor extends HandlerInterceptorAdapter
                 throw new RuntimeException(msg);
             }
 
-            accountDTO = (Account)viewResult.getModel();
-            if (accountDTO == null) {
+            account = (Account)viewResult.getModel();
+            if (account == null) {
                 String msg = "account not exit";
                 throw new RuntimeException(msg);
             }
-            secretKey = accountDTO.getSecretKey();
+            secretKey = account.getSecretKey();
         }
 
         if(!sign.equals(strToMD5(params + secretKey)) ){
@@ -119,7 +136,7 @@ public class AccountInterceptor extends HandlerInterceptorAdapter
         if(accountIdParamToInt > 0){
             AccountLogin accountLogin = new AccountLogin(accountIdParamToInt, true);
             cxt = new RequestContext(terminal, ip, accountLogin);
-            ThreadCacheUtils.put("collect", accountDTO);
+            ThreadCacheUtils.put("collect", account);
         }else{
             cxt = new RequestContext(terminal,ip);
         }

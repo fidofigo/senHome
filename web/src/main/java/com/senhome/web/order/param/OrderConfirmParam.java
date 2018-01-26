@@ -1,11 +1,12 @@
 package com.senhome.web.order.param;
 
+import com.senhome.shell.common.dal.domain.ProtocolPojo;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class OrderConfirmParam
+public class OrderConfirmParam extends ProtocolPojo
 {
     /**
      * 购物车id列表
@@ -21,11 +22,6 @@ public class OrderConfirmParam
      * 地址id
      */
     private Integer addressId;
-
-    /**
-     * 用户id
-     */
-    private Integer accountId;
 
     /**
      * 店铺id

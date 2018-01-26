@@ -35,4 +35,9 @@ public class ShopGoods extends BaseDO
      * 锁定库存
      */
     private Integer lock;
+
+    /**
+     * 名称
+     */
+    private String name;
 }

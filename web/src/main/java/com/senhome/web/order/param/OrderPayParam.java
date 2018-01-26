@@ -1,9 +1,10 @@
 package com.senhome.web.order.param;
 
+import com.senhome.shell.common.dal.domain.ProtocolPojo;
 import lombok.Data;
 
 @Data
-public class OrderPayParam
+public class OrderPayParam extends ProtocolPojo
 {
     /**
      * 订单id
@@ -19,9 +20,4 @@ public class OrderPayParam
      * 支付金额
      */
     private Integer payPrice;
-
-    /**
-     * 用户id
-     */
-    private Integer accountId;
 }

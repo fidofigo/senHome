@@ -9,6 +9,7 @@
         <result column="shop_id" property="shopId"/>
         <result column="stock" property="stock"/>
         <result column="lock" property="lock"/>
+        <result column="name" property="name"/>
         <result column="goods_id" property="goodsId"/>
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
@@ -16,7 +17,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, category_id, goods_id, goods_base_id, shop_id, `stock`, `lock`, is_available, create_time, update_time
+        id, category_id, goods_id, goods_base_id, shop_id, `name`, `stock`, `lock`, is_available, create_time, update_time
     </sql>
 
     <select id="findAll" resultMap="BaseResultMap" >
