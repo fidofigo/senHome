@@ -10,6 +10,8 @@ import com.senhome.service.goods.business.GoodsBusiness;
 import com.senhome.service.goods.business.ShopGoodsBusiness;
 import com.senhome.service.goods.dal.dataobject.Goods;
 import com.senhome.service.goods.dal.dataobject.ShopGoods;
+import com.senhome.service.shop.business.ShopBusiness;
+import com.senhome.service.shop.dal.dataobject.Shop;
 import com.senhome.shell.common.result.ViewResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,9 @@ public class HomeServiceImpl implements HomeServiceApi
 
     @Autowired
     private ShopGoodsBusiness shopGoodsBusiness;
+
+    @Autowired
+    private ShopBusiness shopBusiness;
 
     @Override
     public ViewResult homeDetail(Integer addressId)
@@ -79,13 +84,13 @@ public class HomeServiceImpl implements HomeServiceApi
             }
         }
 
-        ShopGoods shopGoods = shopGoodsBusiness.findShopGoodsById(shopId);
+        Shop shop = shopBusiness.findShopById(shopId);
 
         HomeDTO homeDTO = new HomeDTO();
         homeDTO.setBanner(bannerDTO);
         homeDTO.setCategory(categoryDTOList);
         homeDTO.setShopId(shopId);
-        homeDTO.setShopName(shopGoods.getName());
+        homeDTO.setShopName(shop.getName());
 
         return ViewResult.ofSuccess().putDefaultModel(homeDTO);
     }
