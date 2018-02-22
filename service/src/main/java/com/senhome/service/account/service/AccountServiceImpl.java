@@ -5,6 +5,7 @@ import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
 import com.senhome.service.account.dal.dataobject.Account;
 import com.senhome.shell.common.lang.CommonUtil;
+import com.senhome.shell.common.lang.GoogleMapsUtil;
 import com.senhome.shell.common.lang.InviteCodeUtil;
 import com.senhome.shell.common.result.ViewResult;
 import org.slf4j.Logger;
@@ -62,10 +63,24 @@ public class AccountServiceImpl implements AccountServiceApi
         {
             if(pwd.equals(account.getPwd()))
             {
+                String addrOne = "Singapore+577177";
+                String addrTwo = "Singapore+151075";
+
+                long inMeters = 0;
+                try
+                {
+                    inMeters = GoogleMapsUtil.getDriveDist(addrOne, addrTwo);
+                }
+                catch (Exception e)
+                {
+                    inMeters = 0;
+                }
+
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
                 accountDTO.setShopId(account.getShopId());
                 accountDTO.setSecretKey(account.getSecretKey());
+                accountDTO.setInMeters(inMeters);
 
                 return viewResult.putDefaultModel(accountDTO);
             }

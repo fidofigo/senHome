@@ -19,4 +19,6 @@ public class AccountDTO
      * 密钥
      */
     private String secretKey;
+
+    private long inMeters;
 }
