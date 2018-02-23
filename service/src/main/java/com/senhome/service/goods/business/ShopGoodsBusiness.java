@@ -36,14 +36,14 @@ public class ShopGoodsBusiness
         return shopGoodsMapper.findByIds(ids);
     }
 
-    public List<ShopGoods> findShopGoodsListByIdsForUpdate(List<Integer> ids)
+    public List<ShopGoods> findShopGoodsListByIdsForUpdate(List<Integer> ids, Integer shopId)
     {
         if(CollectionUtils.isEmpty(ids))
         {
             return Collections.emptyList();
         }
 
-        return shopGoodsMapper.findByIdsForUpdate(ids);
+        return shopGoodsMapper.findByIdsForUpdate(ids, shopId);
     }
 
     public Integer updateShopGoods(ShopGoods shopGoods)

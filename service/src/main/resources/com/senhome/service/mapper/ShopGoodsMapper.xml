@@ -71,6 +71,7 @@
         <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
+        and shop_id = #{shopId}
         for update
     </select>
 

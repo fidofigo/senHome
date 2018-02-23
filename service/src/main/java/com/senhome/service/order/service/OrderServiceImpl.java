@@ -225,7 +225,7 @@ public class OrderServiceImpl implements OrderServiceApi
 
         //获取、创建订单商品, 判断商品是否有货
         List<Integer> goodsIds = orderConfirmGoodsList.stream().map(OrderConfirmGoods::getGoodsId).collect(Collectors.toList());
-        List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds);
+        List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds, orderConfirm.getShopId());
 
         Map<Integer, ShopGoods> idShopGoodsMap = shopGoodsList.stream().collect(Collectors.toMap(ShopGoods::getGoodsId, x -> x, (t, u) -> u));
         for(OrderConfirmGoods orderConfirmGoods : orderConfirmGoodsList)
@@ -330,7 +330,7 @@ public class OrderServiceImpl implements OrderServiceApi
         List<OrderGoods> orderGoodsList = orderBusiness.findOrderGoodsByOrderId(orderId);
 
         List<Integer> goodsIds = orderGoodsList.stream().map(OrderGoods::getGoodsId).collect(Collectors.toList());
-        List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds);
+        List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds, order.getShopId());
 
         Map<Integer, ShopGoods> idShopGoodsMap = shopGoodsList.stream().collect(Collectors.toMap(ShopGoods::getGoodsId, x -> x, (t, u) -> u));
         for(OrderGoods orderGoods : orderGoodsList)
@@ -457,7 +457,8 @@ public class OrderServiceImpl implements OrderServiceApi
             List<OrderGoods> orderGoodsList = orderBusiness.findOrderGoodsByOrderId(orderId);
 
             List<Integer> goodsIds = orderGoodsList.stream().map(OrderGoods::getGoodsId).collect(Collectors.toList());
-            List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds);
+            Order shopOrder = orderBusiness.findOrderById(orderId);
+            List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds, shopOrder.getShopId());
 
             Map<Integer, ShopGoods> idShopGoodsMap = shopGoodsList.stream().collect(Collectors.toMap(ShopGoods::getGoodsId, x -> x, (t, u) -> u));
             for(OrderGoods orderGoods : orderGoodsList)

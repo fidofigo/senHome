@@ -59,7 +59,7 @@ public interface ShopGoodsMapper
      * @param ids
      * @return
      */
-    List<ShopGoods> findByIdsForUpdate(List<Integer> ids);
+    List<ShopGoods> findByIdsForUpdate(@Param("ids") List<Integer> ids, @Param("shopId") Integer shopId);
 
     /**
      * 通过类目id查找店铺商品
