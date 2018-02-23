@@ -2,6 +2,7 @@ package com.senhome.service.goods.business;
 
 import com.senhome.service.goods.dal.dataobject.ShopGoods;
 import com.senhome.service.goods.dal.mapper.ShopGoodsMapper;
+import com.senhome.service.shop.dal.dataobject.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -33,6 +34,26 @@ public class ShopGoodsBusiness
         }
 
         return shopGoodsMapper.findByIds(ids);
+    }
+
+    public List<ShopGoods> findShopGoodsListByIdsForUpdate(List<Integer> ids)
+    {
+        if(CollectionUtils.isEmpty(ids))
+        {
+            return Collections.emptyList();
+        }
+
+        return shopGoodsMapper.findByIdsForUpdate(ids);
+    }
+
+    public Integer updateShopGoods(ShopGoods shopGoods)
+    {
+        if(shopGoods == null)
+        {
+            return 0;
+        }
+
+        return shopGoodsMapper.updateShopGoodsStock(shopGoods);
     }
 
     public List<Integer> findCategoryIdListByShop(Integer shopId)

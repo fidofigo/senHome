@@ -106,7 +106,7 @@ public class HomeServiceImpl implements HomeServiceApi
 
         homeDTO.setCategory(categoryDTOList);
         homeDTO.setShopId(shop.getId());
-        homeDTO.setShopName(shop.getName());
+        homeDTO.setShopName(shop.getName() + shop.getCode());
 
         return ViewResult.ofSuccess().putDefaultModel(homeDTO);
     }

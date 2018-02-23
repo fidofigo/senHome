@@ -2,6 +2,7 @@ package com.senhome.service.goods.dal.mapper;
 
 import com.senhome.service.goods.dal.dataobject.Goods;
 import com.senhome.service.goods.dal.dataobject.ShopGoods;
+import com.senhome.service.shop.dal.dataobject.Shop;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -53,6 +54,13 @@ public interface ShopGoodsMapper
     List<ShopGoods> findByIds(List<Integer> ids);
 
     /**
+     * 批量获取店铺商品信息
+     * @param ids
+     * @return
+     */
+    List<ShopGoods> findByIdsForUpdate(List<Integer> ids);
+
+    /**
      * 通过类目id查找店铺商品
      * @param shopId
      * @param categoryId
@@ -61,4 +69,11 @@ public interface ShopGoodsMapper
      * @return
      */
     List<ShopGoods> findByCategoryId(@Param("shopId") int shopId, @Param("categoryId") Integer categoryId, @Param("start") int start, @Param("pageCount") int pageCount);
+
+    /**
+     * 更新店铺商品库存
+     * @param shopGoods
+     * @return
+     */
+    int updateShopGoodsStock(ShopGoods shopGoods);
 }

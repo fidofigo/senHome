@@ -8,7 +8,9 @@ import com.senhome.service.address.dal.dataobject.OrderAddress;
 import com.senhome.service.cart.business.CartBusiness;
 import com.senhome.service.cart.dal.dataobject.Cart;
 import com.senhome.service.goods.business.GoodsBusiness;
+import com.senhome.service.goods.business.ShopGoodsBusiness;
 import com.senhome.service.goods.dal.dataobject.Goods;
+import com.senhome.service.goods.dal.dataobject.ShopGoods;
 import com.senhome.service.order.business.OrderBusiness;
 import com.senhome.service.order.dal.dataobject.Order;
 import com.senhome.service.order.dal.dataobject.OrderConfirm;
@@ -36,6 +38,9 @@ public class OrderServiceImpl implements OrderServiceApi
 
     @Autowired
     private GoodsBusiness goodsBusiness;
+
+    @Autowired
+    private ShopGoodsBusiness shopGoodsBusiness;
 
     @Autowired
     private AddressBusiness addressBusiness;
@@ -180,7 +185,7 @@ public class OrderServiceImpl implements OrderServiceApi
 
         OrderConfirmDTO orderConfirmDTO = new OrderConfirmDTO();
         orderConfirmDTO.setTotalPrice(totalPrice.toString());
-        orderConfirmDTO.setAddressDetail(address.getDetailAddress());
+        orderConfirmDTO.setAddressDetail(address.getDetailAddress() + address.getCode());
         orderConfirmDTO.setConfirmId(orderConfirmNumber.toString());
         orderConfirmDTO.setMobileNumber(address.getMobileNumber());
         orderConfirmDTO.setOrderGoods(orderGoodsDetailDTOList);
@@ -218,6 +223,24 @@ public class OrderServiceImpl implements OrderServiceApi
             return viewResult;
         }
 
+        //获取、创建订单商品, 判断商品是否有货
+        List<Integer> goodsIds = orderConfirmGoodsList.stream().map(OrderConfirmGoods::getGoodsId).collect(Collectors.toList());
+        List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds);
+
+        Map<Integer, ShopGoods> idShopGoodsMap = shopGoodsList.stream().collect(Collectors.toMap(ShopGoods::getGoodsId, x -> x, (t, u) -> u));
+        for(OrderConfirmGoods orderConfirmGoods : orderConfirmGoodsList)
+        {
+            ShopGoods shopGoods = idShopGoodsMap.get(orderConfirmGoods.getGoodsId());
+            if(shopGoods.getStock() < orderConfirmGoods.getCount())
+            {
+                Goods goods = goodsBusiness.findGoodsById(orderConfirmGoods.getGoodsId());
+
+                viewResult.setSuccess(false);
+                viewResult.setMessage(goods.getName() + " sale out");
+                return viewResult;
+            }
+        }
+
         Order order = new Order();
         order.setAccountId(accountId);
         order.setReceiveAddressId(orderConfirm.getReceiveAddressId());
@@ -237,8 +260,6 @@ public class OrderServiceImpl implements OrderServiceApi
 
         orderId = order.getId();
 
-        //获取、创建订单商品
-        List<Integer> goodsIds = orderConfirmGoodsList.stream().map(OrderConfirmGoods::getGoodsId).collect(Collectors.toList());
         List<Goods> goodsList = goodsBusiness.findGoodsListByIds(goodsIds);
 
         if(goodsList == null)
@@ -287,6 +308,7 @@ public class OrderServiceImpl implements OrderServiceApi
     }
 
     @Override
+    @Transactional
     public ViewResult orderPay(Integer orderId, Byte channel, Integer payPrice, Integer accountId)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
@@ -303,6 +325,26 @@ public class OrderServiceImpl implements OrderServiceApi
         order.setPayTime(DateUtil.now());
         order.setPayChannel(Byte.valueOf("1"));
         orderBusiness.updateOrder(order);
+
+        //减商家库存
+        List<OrderGoods> orderGoodsList = orderBusiness.findOrderGoodsByOrderId(orderId);
+
+        List<Integer> goodsIds = orderGoodsList.stream().map(OrderGoods::getGoodsId).collect(Collectors.toList());
+        List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds);
+
+        Map<Integer, ShopGoods> idShopGoodsMap = shopGoodsList.stream().collect(Collectors.toMap(ShopGoods::getGoodsId, x -> x, (t, u) -> u));
+        for(OrderGoods orderGoods : orderGoodsList)
+        {
+            ShopGoods shopGoods = idShopGoodsMap.get(orderGoods.getGoodsId());
+            if(shopGoods == null)
+            {
+                continue;
+            }
+
+            shopGoods.setLock(shopGoods.getLock() + orderGoods.getCount());
+            shopGoods.setStock(shopGoods.getStock() - orderGoods.getCount());
+            shopGoodsBusiness.updateShopGoods(shopGoods);
+        }
 
         OrderPayDTO orderPay = new OrderPayDTO();
         orderPay.setPayStr("success");
@@ -391,6 +433,7 @@ public class OrderServiceImpl implements OrderServiceApi
     }
 
     @Override
+    @Transactional
     public ViewResult updateOrder(Integer orderId, Integer type)
     {
         ViewResult viewResult = ViewResult.ofSuccess();
@@ -405,6 +448,35 @@ public class OrderServiceImpl implements OrderServiceApi
         Order order = new Order();
         order.setId(orderId);
         order.setType(Byte.valueOf(type.toString()));
+
+        //商品状态改为待配送,去掉锁定的库存
+        if(type == 3)
+        {
+            //减商家库存
+            List<OrderGoods> orderGoodsList = orderBusiness.findOrderGoodsByOrderId(orderId);
+
+            List<Integer> goodsIds = orderGoodsList.stream().map(OrderGoods::getGoodsId).collect(Collectors.toList());
+            List<ShopGoods> shopGoodsList = shopGoodsBusiness.findShopGoodsListByIdsForUpdate(goodsIds);
+
+            Map<Integer, ShopGoods> idShopGoodsMap = shopGoodsList.stream().collect(Collectors.toMap(ShopGoods::getGoodsId, x -> x, (t, u) -> u));
+            for(OrderGoods orderGoods : orderGoodsList)
+            {
+                ShopGoods shopGoods = idShopGoodsMap.get(orderGoods.getGoodsId());
+                if(shopGoods == null)
+                {
+                    continue;
+                }
+
+                Integer lock = shopGoods.getLock() - orderGoods.getCount();
+                if(lock < 0)
+                {
+                    lock = 0;
+                }
+
+                shopGoods.setLock(lock);
+                shopGoodsBusiness.updateShopGoods(shopGoods);
+            }
+        }
 
         if(orderBusiness.updateOrder(order) <= 0)
         {
