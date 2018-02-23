@@ -23,7 +23,7 @@ public interface ShopGoodsMapper
      * 查找店铺商品总数
      * @return
      */
-    Integer findAllCount();
+    Integer findAllCount(Integer shopId);
 
     /**
      * 查找店铺类目
@@ -35,9 +35,10 @@ public interface ShopGoodsMapper
     /**
      * 按照类目查找店铺商品总数
      * @param categoryId
+     * @param shopId
      * @return
      */
-    Integer findCountByCategoryId(Integer categoryId);
+    Integer findCountByCategoryId(@Param("categoryId") Integer categoryId, @Param("shopId") Integer shopId);
 
     /**
      * 通过id查找店铺商品信息

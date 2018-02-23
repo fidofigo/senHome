@@ -83,7 +83,7 @@ public class ShopGoodsBusiness
         }
     }
 
-    public Integer findShopGoodsCountByCategoryId(Integer categoryId)
+    public Integer findShopGoodsCountByCategoryId(Integer categoryId, Integer shopId)
     {
         if(categoryId == null)
         {
@@ -92,11 +92,11 @@ public class ShopGoodsBusiness
 
         if(categoryId == 0)
         {
-            return shopGoodsMapper.findAllCount();
+            return shopGoodsMapper.findAllCount(shopId);
         }
         else
         {
-            return shopGoodsMapper.findCountByCategoryId(categoryId);
+            return shopGoodsMapper.findCountByCategoryId(categoryId, shopId);
         }
     }
 }

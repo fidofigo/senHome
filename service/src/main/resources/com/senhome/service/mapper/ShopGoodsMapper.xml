@@ -30,7 +30,7 @@
     <select id="findAllCount" resultType="int" >
         select count(1)
         from shop_goods
-        where is_available = 1
+        where is_available = 1 and shop_id = #{shopId}
     </select>
 
     <select id="findAllShopCategoryId" resultType="int" >
@@ -43,7 +43,7 @@
     <select id="findCountByCategoryId" resultType="int" >
         select count(1)
         from shop_goods
-        where is_available = 1 and category_id = #{categoryId}
+        where is_available = 1 and category_id = #{categoryId} and shop_id = #{shopId}
     </select>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -87,10 +87,10 @@
         update shop_goods
         <set>
             <if test="stock != null">
-                stock = #{stock},
+                `stock` = #{stock},
             </if>
             <if test="lock != null">
-                lock = #{lock},
+                `lock` = #{lock},
             </if>
         </set>
         where id = #{id}

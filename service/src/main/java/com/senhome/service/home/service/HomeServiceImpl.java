@@ -159,7 +159,7 @@ public class HomeServiceImpl implements HomeServiceApi
 
         List<Goods> goodsList = goodsBusiness.findGoodsListByIds(goodsIds);
 
-        Integer total = shopGoodsBusiness.findShopGoodsCountByCategoryId(categoryId);
+        Integer total = shopGoodsBusiness.findShopGoodsCountByCategoryId(categoryId, shopId);
 
         List<HomeGoodsDetailDTO> homeGoods = new ArrayList<>();
 
