@@ -41,4 +41,9 @@ public class OrderDetailDTO
      * 订单id
      */
     private Integer orderId;
+
+    /**
+     * 地址编码
+     */
+    private Integer code;
 }
