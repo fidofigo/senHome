@@ -2,6 +2,8 @@ package com.senhome.service.home.service;
 
 import com.senhome.api.home.api.HomeServiceApi;
 import com.senhome.api.home.model.*;
+import com.senhome.service.address.business.AddressBusiness;
+import com.senhome.service.address.dal.dataobject.Address;
 import com.senhome.service.banner.business.BannerBusiness;
 import com.senhome.service.banner.dal.dataobject.Banner;
 import com.senhome.service.category.business.CategoryBusiness;
@@ -12,12 +14,16 @@ import com.senhome.service.goods.dal.dataobject.Goods;
 import com.senhome.service.goods.dal.dataobject.ShopGoods;
 import com.senhome.service.shop.business.ShopBusiness;
 import com.senhome.service.shop.dal.dataobject.Shop;
+import com.senhome.shell.common.dal.domain.DistanceDO;
+import com.senhome.shell.common.lang.GoogleMapsUtil;
 import com.senhome.shell.common.result.ViewResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -40,6 +46,11 @@ public class HomeServiceImpl implements HomeServiceApi
     @Autowired
     private ShopBusiness shopBusiness;
 
+    @Autowired
+    private AddressBusiness addressBusiness;
+
+    private final Integer MAX_DISTANCE = 10000;
+
     @Override
     public ViewResult homeDetail(Integer addressId)
     {
@@ -60,11 +71,20 @@ public class HomeServiceImpl implements HomeServiceApi
         bannerDTO.setTotal(bannerList.size());
         bannerDTO.setList(bannerListDTOList);
 
+        HomeDTO homeDTO = new HomeDTO();
+        homeDTO.setBanner(bannerDTO);
+
         //获取类目相关信息
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
 
-        Integer shopId = 1;
-        List<Integer> categoryIds = shopGoodsBusiness.findCategoryIdListByShop(shopId);
+        Shop shop = getShop(addressId);
+
+        if(shop == null)
+        {
+            return ViewResult.ofSuccess().putDefaultModel(homeDTO);
+        }
+
+        List<Integer> categoryIds = shopGoodsBusiness.findCategoryIdListByShop(shop.getId());
         if(categoryIds != null && categoryIds.size() > 0)
         {
             //获取类目相关信息
@@ -84,15 +104,50 @@ public class HomeServiceImpl implements HomeServiceApi
             }
         }
 
-        Shop shop = shopBusiness.findShopById(shopId);
-
-        HomeDTO homeDTO = new HomeDTO();
-        homeDTO.setBanner(bannerDTO);
         homeDTO.setCategory(categoryDTOList);
-        homeDTO.setShopId(shopId);
+        homeDTO.setShopId(shop.getId());
         homeDTO.setShopName(shop.getName());
 
         return ViewResult.ofSuccess().putDefaultModel(homeDTO);
+    }
+
+    /**
+     * 获取用户附近商家
+     * @param addressId
+     * @return
+     */
+    private Shop getShop(Integer addressId)
+    {
+        //获取附近商家
+        List<Shop> shopList = shopBusiness.findAllOpenShop();
+
+        if(CollectionUtils.isEmpty(shopList))
+        {
+            return null;
+        }
+
+        List<String> codeIds = shopList.stream().map(Shop::getCode).collect(Collectors.toList());
+        Map<String, Shop> idShopMap = shopList.stream().collect(Collectors.toMap(Shop::getCode, x -> x, (t, u) -> u));
+
+        //获取用户code码
+        Address address = addressBusiness.findAddressById(addressId);
+
+        List<DistanceDO> distanceList = GoogleMapsUtil.getDistance(codeIds, address.getCode().toString());
+
+        if(CollectionUtils.isEmpty(distanceList))
+        {
+            return null;
+        }
+
+        distanceList.sort(Comparator.comparing(DistanceDO::getDistance));
+
+        DistanceDO distanceDO = distanceList.get(0);
+        if(distanceDO.getDistance() >= MAX_DISTANCE)
+        {
+            return null;
+        }
+
+        return idShopMap.get(distanceDO.getCode());
     }
 
     @Override

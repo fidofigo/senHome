@@ -39,5 +39,15 @@ public class Shop extends BaseDO
     /**
      * 手机号
      */
-    private Integer mobileNumber;
+    private String mobileNumber;
+
+    /**
+     * 地址编码
+     */
+    private String code;
+
+    /**
+     * 距离
+     */
+    private Integer distance;
 }

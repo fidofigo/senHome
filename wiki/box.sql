@@ -216,6 +216,7 @@ CREATE TABLE `shop`(
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺名称',
   `account_id` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺用户',
   `detail_address` varchar(200) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `code` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '地址编码',
   `income` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收益，单位为分',
   `withdraw` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收入(已提现)，单位为分',
   `mobile_number` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',

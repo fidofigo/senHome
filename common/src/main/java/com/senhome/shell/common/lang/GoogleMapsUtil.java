@@ -3,11 +3,14 @@ package com.senhome.shell.common.lang;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.senhome.shell.common.dal.domain.DistanceDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GoogleMapsUtil
 {
@@ -19,11 +22,13 @@ public class GoogleMapsUtil
 
     private static final String SUCCESS = "OK";
 
-    public static List<Integer> getDistance(String origin, String destination)
+    public static List<DistanceDO> getDistance(List<String> codeIds, String destination)
     {
+        String origin = String.join("|", codeIds);
+
         String data = "origins=" + origin + "&destinations=" + destination + "&key=" + API_KEY;
 
-        List<Integer> distanceList = new ArrayList<>();
+        List<DistanceDO> distanceList = new ArrayList<>();
         try
         {
             String resultStr = HttpConnectionUtils.sendGet(HEAD_URL, data);
@@ -44,8 +49,13 @@ public class GoogleMapsUtil
                         JSONObject element = elements.getJSONObject(j);
                         if(SUCCESS.equals(element.getString("status")))
                         {
+                            String codeId = codeIds.get(j);
                             Integer distance = element.getJSONObject("distance").getInteger("value");
-                            distanceList.add(distance);
+                            DistanceDO distanceDO = new DistanceDO();
+                            distanceDO.setCode(codeId);
+                            distanceDO.setDistance(distance);
+
+                            distanceList.add(distanceDO);
                         }
                     }
                 }

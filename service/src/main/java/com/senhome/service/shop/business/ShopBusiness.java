@@ -5,6 +5,8 @@ import com.senhome.service.shop.dal.mapper.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShopBusiness
 {
@@ -19,6 +21,11 @@ public class ShopBusiness
         }
 
         return shopMapper.findById(id);
+    }
+
+    public List<Shop> findAllOpenShop()
+    {
+        return shopMapper.findAllOpenShop();
     }
 
     public Integer updateShop(Shop shop)
