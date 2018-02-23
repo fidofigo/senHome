@@ -1,5 +1,6 @@
 package com.senhome.service.account.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
@@ -12,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("accountServiceApi")
 public class AccountServiceImpl implements AccountServiceApi
@@ -63,24 +66,10 @@ public class AccountServiceImpl implements AccountServiceApi
         {
             if(pwd.equals(account.getPwd()))
             {
-                String addrOne = "Singapore+577177";
-                String addrTwo = "Singapore+151075";
-
-                long inMeters = 0;
-                try
-                {
-                    inMeters = GoogleMapsUtil.getDriveDist(addrOne, addrTwo);
-                }
-                catch (Exception e)
-                {
-                    inMeters = 0;
-                }
-
                 AccountDTO accountDTO = new AccountDTO();
                 accountDTO.setAccountId(account.getId());
                 accountDTO.setShopId(account.getShopId());
                 accountDTO.setSecretKey(account.getSecretKey());
-                accountDTO.setInMeters(inMeters);
 
                 return viewResult.putDefaultModel(accountDTO);
             }
