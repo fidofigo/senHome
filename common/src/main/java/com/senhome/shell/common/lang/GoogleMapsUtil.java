@@ -7,10 +7,7 @@ import com.senhome.shell.common.dal.domain.DistanceDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GoogleMapsUtil
 {
@@ -24,9 +21,21 @@ public class GoogleMapsUtil
 
     public static List<DistanceDO> getDistance(List<String> codeIds, String destination)
     {
-        String origin = String.join("|", codeIds);
+        String origin = "";
 
-        String data = "origins=" + origin + "&destinations=" + destination + "&key=" + API_KEY;
+        for(String code : codeIds)
+        {
+            if(Objects.equals(origin, ""))
+            {
+                origin += "Singapore+" + code;
+            }
+            else
+            {
+                origin += "|Singapore+" + code;
+            }
+        }
+
+        String data = "origins=" + origin + "&destinations=Singapore+" + destination + "&key=" + API_KEY;
 
         List<DistanceDO> distanceList = new ArrayList<>();
         try

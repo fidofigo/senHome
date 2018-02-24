@@ -50,8 +50,6 @@ public class GoodsServiceImpl implements GoodsServiceApi
             return viewResult;
         }
 
-        List<GoodsDetail> goodsDetailList = goodsBusiness.findGoodsDetailByGoodsId(goodsId);
-
         //创建商品基础信息
         GoodsBaseDTO goodsBaseDTO = new GoodsBaseDTO();
         goodsBaseDTO.setBrand(goodsBase.getBrand());
@@ -92,19 +90,21 @@ public class GoodsServiceImpl implements GoodsServiceApi
 
         //创建商品详情图片列表
         List<GoodsImageDTO> goodsImageList = new ArrayList<>();
-        if(goodsDetailList != null && goodsDetailList.size() > 0)
-        {
-            for(GoodsDetail goodsDetail : goodsDetailList)
-            {
-                GoodsImageDTO goodsImage = new GoodsImageDTO();
-                goodsImage.setHeight(goodsDetail.getHeight());
-                goodsImage.setWidth(goodsDetail.getWidth());
-                goodsImage.setImage(goodsDetail.getUrl());
-                goodsImage.setUrl(goodsDetail.getLink());
 
-                goodsImageList.add(goodsImage);
-            }
-        }
+//        List<GoodsDetail> goodsDetailList = goodsBusiness.findGoodsDetailByGoodsId(goodsId);
+//        if(goodsDetailList != null && goodsDetailList.size() > 0)
+//        {
+//            for(GoodsDetail goodsDetail : goodsDetailList)
+//            {
+//                GoodsImageDTO goodsImage = new GoodsImageDTO();
+//                goodsImage.setHeight(goodsDetail.getHeight());
+//                goodsImage.setWidth(goodsDetail.getWidth());
+//                goodsImage.setImage(goodsDetail.getUrl());
+//                goodsImage.setUrl(goodsDetail.getLink());
+//
+//                goodsImageList.add(goodsImage);
+//            }
+//        }
 
         GoodsDTO goodsDTO = new GoodsDTO();
         goodsDTO.setDetailList(goodsImageList);
