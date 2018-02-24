@@ -52,13 +52,13 @@ public class GoogleMapsUtil
                 for (int i = 0; i < rows.size(); i++)
                 {
                     JSONArray elements = rows.getJSONObject(i).getJSONArray("elements");
+                    String codeId = codeIds.get(i);
 
                     for (int j = 0; j < elements.size(); j++)
                     {
                         JSONObject element = elements.getJSONObject(j);
                         if(SUCCESS.equals(element.getString("status")))
                         {
-                            String codeId = codeIds.get(j);
                             Integer distance = element.getJSONObject("distance").getInteger("value");
                             DistanceDO distanceDO = new DistanceDO();
                             distanceDO.setCode(codeId);
