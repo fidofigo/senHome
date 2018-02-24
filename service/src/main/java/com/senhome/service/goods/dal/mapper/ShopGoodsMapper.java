@@ -1,8 +1,6 @@
 package com.senhome.service.goods.dal.mapper;
 
-import com.senhome.service.goods.dal.dataobject.Goods;
 import com.senhome.service.goods.dal.dataobject.ShopGoods;
-import com.senhome.service.shop.dal.dataobject.Shop;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

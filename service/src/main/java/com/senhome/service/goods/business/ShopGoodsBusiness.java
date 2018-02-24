@@ -2,7 +2,6 @@ package com.senhome.service.goods.business;
 
 import com.senhome.service.goods.dal.dataobject.ShopGoods;
 import com.senhome.service.goods.dal.mapper.ShopGoodsMapper;
-import com.senhome.service.shop.dal.dataobject.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

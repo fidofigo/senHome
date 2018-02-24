@@ -68,7 +68,7 @@
         from shop_goods
         where is_available = 1
         and goods_id in
-        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
             #{item}
         </foreach>
         and shop_id = #{shopId}
