@@ -3,6 +3,8 @@ package com.senhome.web.interceptor;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -22,6 +24,15 @@ import java.util.Map;
 @Configuration
 @EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport {
+
+    @Value("${spring.redis.host}")
+    private String host;
+    @Value("${spring.redis.port}")
+    private int port;
+    @Value("${spring.redis.timeout}")
+    private int timeout;
+    @Value("${spring.redis.password}")
+    private String password;
 
     /**
      * 生成key的策略
@@ -53,7 +64,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
         RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
         //设置缓存过期时间
-        // rcm.setDefaultExpiration(60);//秒
+        rcm.setDefaultExpiration(60);//秒
         //设置value的过期时间
         Map<String,Long> map=new HashMap<String, Long>();
         map.put("test",60L);
@@ -62,10 +73,25 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     }
 
     /**
+     * redis 数据库连接池
+     * @return
+     */
+
+    @Bean
+    public JedisConnectionFactory redisConnectionFactory() {
+        JedisConnectionFactory factory = new JedisConnectionFactory();
+        factory.setHostName(host);
+        factory.setPort(port);
+        factory.setTimeout(timeout); // 设置连接超时时间
+        return factory;
+    }
+
+    /**
      * RedisTemplate配置
      * @param factory
      * @return
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
         StringRedisTemplate template = new StringRedisTemplate(factory);

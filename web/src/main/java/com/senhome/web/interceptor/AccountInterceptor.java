@@ -1,6 +1,5 @@
 package com.senhome.web.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
 import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.service.account.dal.dataobject.Account;
 import com.senhome.shell.common.enums.OS;
