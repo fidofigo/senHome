@@ -214,7 +214,6 @@ CREATE TABLE `relation_group_product` (
 CREATE TABLE `shop`(
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺名称',
-  `account_id` varchar(50) NOT NULL DEFAULT '' COMMENT '店铺用户',
   `detail_address` varchar(200) NOT NULL DEFAULT '' COMMENT '详细地址',
   `code` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '地址编码',
   `income` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '总收益，单位为分',

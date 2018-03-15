@@ -4,7 +4,6 @@
 
     <resultMap id="BaseResultMap" type="com.senhome.service.shop.dal.dataobject.Shop" >
         <id column="id" property="id"/>
-        <result column="account_id" property="accountId"/>
         <result column="detail_address" property="detailAddress"/>
         <result column="name" property="name"/>
         <result column="income" property="income"/>
@@ -18,7 +17,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, account_id, mobile_number, detail_address, `name`, income, withdraw, is_open, code, is_available, create_time, update_time
+        id, mobile_number, detail_address, `name`, income, withdraw, is_open, code, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >

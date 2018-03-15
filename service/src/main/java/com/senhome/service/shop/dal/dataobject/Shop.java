@@ -12,11 +12,6 @@ public class Shop extends BaseDO
     private String name;
 
     /**
-     * 店铺用户id
-     */
-    private Integer accountId;
-
-    /**
      * 详细地址
      */
     private String detailAddress;
