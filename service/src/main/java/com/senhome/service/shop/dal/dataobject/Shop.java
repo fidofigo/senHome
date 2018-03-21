@@ -45,4 +45,9 @@ public class Shop extends BaseDO
      * 距离
      */
     private Integer distance;
+
+    /**
+     * 头像地址
+     */
+    private String head;
 }

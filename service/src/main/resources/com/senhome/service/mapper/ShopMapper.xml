@@ -11,13 +11,14 @@
         <result column="mobile_number" property="mobileNumber"/>
         <result column="is_open" property="isOpen"/>
         <result column="code" property="code"/>
+        <result column="head" property="head"/>
         <result column="is_available" property="isAvailable"/>
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, mobile_number, detail_address, `name`, income, withdraw, is_open, code, is_available, create_time, update_time
+        id, mobile_number, detail_address, `name`, income, withdraw, is_open, code, head, is_available, create_time, update_time
     </sql>
 
     <select id="findById" resultMap="BaseResultMap" >
@@ -43,6 +44,9 @@
             </if>
             <if test="detailAddress != null">
                 detail_address = #{detailAddress},
+            </if>
+            <if test="head != null">
+                head = #{head},
             </if>
             <if test="withdraw != null">
                 withdraw = #{withdraw},

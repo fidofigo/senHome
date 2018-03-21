@@ -19,4 +19,14 @@ public class ShopDetailDTO
      * 是否开店；0：否，1：是
      */
     private Integer isOpen;
+
+    /**
+     * 店名
+     */
+    private String name;
+
+    /**
+     * 头像地址
+     */
+    private String head;
 }

@@ -1,20 +1,16 @@
 package com.senhome.service.account.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.senhome.api.account.api.AccountServiceApi;
 import com.senhome.api.account.model.AccountDTO;
 import com.senhome.service.account.business.AccountBusiness;
 import com.senhome.service.account.dal.dataobject.Account;
 import com.senhome.shell.common.lang.CommonUtil;
-import com.senhome.shell.common.lang.GoogleMapsUtil;
 import com.senhome.shell.common.lang.InviteCodeUtil;
 import com.senhome.shell.common.result.ViewResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service("accountServiceApi")
 public class AccountServiceImpl implements AccountServiceApi

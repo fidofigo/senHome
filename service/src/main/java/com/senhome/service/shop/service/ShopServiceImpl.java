@@ -43,6 +43,8 @@ public class ShopServiceImpl implements ShopServiceApi
         shopDetailDTO.setIncome(BigDecimal.valueOf(shop.getIncome()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
         shopDetailDTO.setWithdraw(BigDecimal.valueOf(shop.getWithdraw()).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_FLOOR).toString());
         shopDetailDTO.setIsOpen(shop.getIsOpen());
+        shopDetailDTO.setName(shop.getName());
+        shopDetailDTO.setHead(shop.getHead());
 
         return viewResult.putDefaultModel(shopDetailDTO);
     }

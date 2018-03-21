@@ -1,7 +1,6 @@
 package com.senhome.web.account.controller;
 
 import com.senhome.api.account.api.AccountServiceApi;
-import com.senhome.shell.common.redis.RedisUtils;
 import com.senhome.shell.common.result.ViewResult;
 import com.senhome.web.account.param.AccountParam;
 import org.slf4j.Logger;
@@ -23,21 +22,9 @@ public class AccountController
     @Resource
     private AccountServiceApi accountServiceApi;
 
-    @Resource
-    private RedisUtils redisUtils;
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Object login(AccountParam accountParam)
     {
-        if(!redisUtils.exists("hello"))
-        {
-            redisUtils.set("hello", "123", 600L);
-        }
-        else
-        {
-            String value = redisUtils.get("hello").toString();
-            logger.info("login" + value);
-        }
         ViewResult result = accountServiceApi.login(accountParam.getEmail(), accountParam.getPwd());
 
         return result.toJson();
