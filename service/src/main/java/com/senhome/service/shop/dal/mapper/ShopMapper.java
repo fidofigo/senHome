@@ -16,6 +16,13 @@ public interface ShopMapper
     Shop findById(Integer id);
 
     /**
+     * 批量获取店铺信息
+     * @param ids
+     * @return
+     */
+    List<Shop> findByIds(List<Integer> ids);
+
+    /**
      * 获取所有开的店铺信息
      * @return
      */

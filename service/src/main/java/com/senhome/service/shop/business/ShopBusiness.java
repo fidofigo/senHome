@@ -4,7 +4,9 @@ import com.senhome.service.shop.dal.dataobject.Shop;
 import com.senhome.service.shop.dal.mapper.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,6 +23,16 @@ public class ShopBusiness
         }
 
         return shopMapper.findById(id);
+    }
+
+    public List<Shop> findShopsListByIds(List<Integer> ids)
+    {
+        if(CollectionUtils.isEmpty(ids))
+        {
+            return Collections.emptyList();
+        }
+
+        return shopMapper.findByIds(ids);
     }
 
     public List<Shop> findAllOpenShop()

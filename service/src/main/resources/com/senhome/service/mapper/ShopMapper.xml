@@ -27,6 +27,16 @@
         where is_available = 1 and id = #{id}
     </select>
 
+    <select id="findByIds" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" />
+        from shop
+        where is_available = 1
+        and id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <select id="findAllOpenShop" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />
         from shop

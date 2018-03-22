@@ -46,4 +46,19 @@ public class OrderDetailDTO
      * 地址编码
      */
     private Integer code;
+
+    /**
+     * 店铺名称
+     */
+    private String shopName;
+
+    /**
+     * 店铺图片
+     */
+    private String shopImage;
+
+    /**
+     * 创建时间
+     */
+    private String createTime;
 }

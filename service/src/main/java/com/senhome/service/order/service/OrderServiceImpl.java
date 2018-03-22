@@ -16,6 +16,8 @@ import com.senhome.service.order.dal.dataobject.Order;
 import com.senhome.service.order.dal.dataobject.OrderConfirm;
 import com.senhome.service.order.dal.dataobject.OrderConfirmGoods;
 import com.senhome.service.order.dal.dataobject.OrderGoods;
+import com.senhome.service.shop.business.ShopBusiness;
+import com.senhome.service.shop.dal.dataobject.Shop;
 import com.senhome.shell.common.lang.CommonUtil;
 import com.senhome.shell.common.result.ViewResult;
 import com.senhome.shell.common.time.DateUtil;
@@ -40,6 +42,9 @@ public class OrderServiceImpl implements OrderServiceApi
 
     @Autowired
     private ShopGoodsBusiness shopGoodsBusiness;
+
+    @Autowired
+    private ShopBusiness shopBusiness;
 
     @Autowired
     private AddressBusiness addressBusiness;
@@ -523,6 +528,12 @@ public class OrderServiceImpl implements OrderServiceApi
         List<OrderGoods> orderGoodsList = orderBusiness.findOrderGoodsByOrderId(orderIds);
         Map<Integer, List<OrderGoods>> idGoodsMap = orderGoodsList.stream().collect(Collectors.groupingBy(OrderGoods::getOrderId));
 
+        //获取店铺信息
+        List<Integer> shopIds = orderList.stream().map(Order::getShopId).collect(Collectors.toList());
+
+        List<Shop> shopList = shopBusiness.findShopsListByIds(shopIds);
+        Map<Integer, Shop> idShopMap = shopList.parallelStream().collect(Collectors.toMap(Shop::getId, e -> e));
+
         //获取、创建订单商品
         List<Integer> goodsIds = orderGoodsList.stream().map(OrderGoods::getGoodsId).collect(Collectors.toList());
         List<Goods> goodsList = goodsBusiness.findGoodsListByIds(goodsIds);
@@ -550,6 +561,11 @@ public class OrderServiceImpl implements OrderServiceApi
             orderDetailDTO.setIsPay(order.getPayTime() == null ? 0 : 1);
             orderDetailDTO.setOrderId(order.getId());
             orderDetailDTO.setType(order.getType());
+            orderDetailDTO.setCreateTime(DateUtil.formatString(order.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+
+            Shop shop = idShopMap.get(order.getShopId());
+            orderDetailDTO.setShopImage(shop.getHead());
+            orderDetailDTO.setShopName(shop.getName());
 
             OrderAddress orderAddress = orderAddressMap.get(order.getReceiveAddressId());
             orderDetailDTO.setAddressDetail(orderAddress.getDetailAddress());
