@@ -128,7 +128,7 @@ public class OrderServiceImpl implements OrderServiceApi
         }
 
         //生成唯一事务id
-        Long orderConfirmNumber = CommonUtil.generateTransactionId();
+        String orderConfirmNumber = CommonUtil.getUUID();
         if(orderConfirmNumber == null)
         {
             viewResult.setSuccess(false);
@@ -155,7 +155,7 @@ public class OrderServiceImpl implements OrderServiceApi
         //创建订单确认数据
         OrderConfirm orderConfirm = new OrderConfirm();
         orderConfirm.setAccountId(accountId);
-        orderConfirm.setNumber(orderConfirmNumber.toString());
+        orderConfirm.setNumber(orderConfirmNumber);
         orderConfirm.setReceiveAddressId(orderAddressId);
         orderConfirm.setTotalPrice(payPrice);
         orderConfirm.setShopId(shopId);
