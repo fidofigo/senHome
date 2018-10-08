@@ -58,4 +58,16 @@ public abstract class AbstractCacheClient implements CacheClientIF
     {
         return false;
     }
+
+    @Override
+    public void putBytes(String key, byte[] bytes, int second)
+    {
+        throw  new  UnsupportedOperationException("暂时不支持");
+    }
+
+    @Override
+    public byte[] getRawBytes(String key)
+    {
+        throw  new  UnsupportedOperationException("暂时不支持");
+    }
 }

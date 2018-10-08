@@ -45,4 +45,31 @@ public class Constants
      * 缓存标示
      */
     public static final String ONE_CACHE_KEY_DELIMITER = ":";
+
+    /**
+     * 本地cache占用堆内存比率
+     */
+    public static final double LOCAL_CACHE_MEM_RATIO = 128 * 1.0 / 4096;
+
+    /**
+     * 本地cache默认key数量
+     */
+    public static final long LOCAL_CACHE_DEFAULT_KEY_NUM = 1000L;
+
+    /**
+     * 预估一个key-value 的大小
+     */
+    public static final int LOCAL_CACHE_DEFAULT_KEY_SIZE = 10 * 1024;
+
+    /**
+     * 本地缓存默认load加载的值
+     */
+    public static final String LOCAL_CACHE_LOAD_DEFAULT_VALUE = "-10086";
+
+    public static final String REDIS_SPLIT_CHAR = ":";
+
+    /**
+     * 多级缓存，订阅 管道
+     */
+    public static final String CHANNEL_FOR_LAYERING_CACHE_SYNC = "channel:layering_sync:%s";
 }
