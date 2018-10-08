@@ -1,0 +1,32 @@
+package com.senhome.shell.common.zlCache.factory;
+
+import com.senhome.shell.common.zlCache.config.RedisCacheConfig;
+import com.senhome.shell.common.zlCache.redis.RedisCacheClientImpl;
+import com.senhome.shell.common.zlCache.serializer.Serializer;
+
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * @author xier
+ * @date 2018/10/7 10:32
+ */
+public class OneCacheFactory
+{
+    // redis map
+    private static ConcurrentHashMap<RedisCacheConfig, CacheClientIF> redisClientMap = new ConcurrentHashMap<>();
+
+    //redis 缓存客户端
+    public static synchronized CacheClientIF getRedisClient(RedisCacheConfig redisCacheConfig)
+    {
+        return getRedisClient(redisCacheConfig, null, null);
+    }
+
+    public static synchronized CacheClientIF getRedisClient(RedisCacheConfig redisCacheConfig, Serializer keySerializer, Serializer valueSerializer) {
+        CacheClientIF cacheClient = redisClientMap.get(redisCacheConfig);
+        if (null == cacheClient) {
+            cacheClient = new RedisCacheClientImpl(redisCacheConfig, keySerializer, valueSerializer);
+            redisClientMap.put(redisCacheConfig, cacheClient);
+        }
+        return cacheClient;
+    }
+}
