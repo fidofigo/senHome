@@ -14,13 +14,21 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ZlCacheFactory
 {
-    // redis map
+    /**
+     * redis map
+     */
     private static ConcurrentHashMap<RedisCacheConfig, CacheClientIF> redisClientMap = new ConcurrentHashMap<>();
 
-    // localCache map
+    /**
+     * localCache map
+     */
     private volatile static CacheClientIF localCacheClient;
 
-    //redis 缓存客户端
+    /**
+     * redis 缓存客户端
+     * @param redisCacheConfig
+     * @return
+     */
     public static synchronized CacheClientIF getRedisClient(RedisCacheConfig redisCacheConfig)
     {
         return getRedisClient(redisCacheConfig, null, null);
