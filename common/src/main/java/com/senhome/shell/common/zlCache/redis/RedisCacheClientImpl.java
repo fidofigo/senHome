@@ -48,12 +48,10 @@ public class RedisCacheClientImpl extends AbstractRedisClient implements Disposa
      */
     private JedisPool jedisPool;
 
-
     public RedisCacheClientImpl(RedisCacheConfig redisCacheConfig) {
         this.redisCacheConfig = redisCacheConfig;
         init();
     }
-
 
     public RedisCacheClientImpl(RedisCacheConfig redisCacheConfig, Serializer keySerializer, Serializer valueSerializer) {
         this(redisCacheConfig);
