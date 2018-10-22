@@ -26,6 +26,7 @@
 		<module>api</module>
 		<module>service</module>
 		<module>web</module>
+		<module>cache</module>
 	</modules>
 
     <dependencyManagement>
