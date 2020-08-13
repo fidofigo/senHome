@@ -1,5 +1,3 @@
-## 格格家
-
 ### assembly
 
 * 业务打包层，可按照层级分为api、service
